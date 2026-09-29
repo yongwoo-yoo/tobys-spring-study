@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="토비의 스프링 3.1을 처음부터 이해하기 위한 초심자 학습 교재">
+  <title>$if(title)$$title$$else$토비의 스프링 학습실$endif$</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="menuButton" class="icon-button" aria-label="목차 열기">☰</button>
+    <a class="brand" href="#top">토비의 스프링 학습실</a>
+    <div class="progress-wrap" title="완료한 대단원">
+      <span id="progressText">0%</span>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <button id="themeButton" class="icon-button" aria-label="색상 모드 변경">◐</button>
+  </header>
+
+  <div class="layout" id="top">
+    <aside id="sidebar" class="sidebar">
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="목차·본문 검색" autocomplete="off">
+        <button id="searchButton">찾기</button>
+      </div>
+      <p class="search-help" id="searchHelp">Enter를 누르면 본문에서 찾습니다.</p>
+      <nav class="toc" aria-label="학습 목차">$toc$</nav>
+      <div class="source-links">
+        <a href="https://incheol-jung.gitbook.io/docs/study/tobys-spring" target="_blank" rel="noreferrer">GitBook 원자료</a>
+        <a href="https://github.com/pjok1122/Spring-Summary" target="_blank" rel="noreferrer">GitHub 보충자료</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <p class="eyebrow">BEGINNER STUDY GUIDE</p>
+        <h1>토비의 스프링 3.1</h1>
+        <p>배경지식 없이 시작해 IoC/DI, 테스트, 트랜잭션, AOP를 연결하는 학습 교재입니다.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#전체-지도-코드-한-덩어리가-스프링-설계로-변하는-과정">전체 지도부터 보기</a>
+          <a class="secondary" href="#실제-학습-계획과-기록지">10주 계획 보기</a>
+        </div>
+      </section>
+      $body$
+      <footer>
+        <p>학습 진도와 색상 설정은 이 브라우저에만 저장됩니다.</p>
+      </footer>
+    </main>
+  </div>
+  <button id="toTop" class="to-top" aria-label="맨 위로">↑</button>
+  <script src="app.js"></script>
+</body>
+</html>

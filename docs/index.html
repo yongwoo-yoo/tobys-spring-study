@@ -1,0 +1,2032 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="토비의 스프링 3.1을 처음부터 이해하기 위한 초심자 학습 교재">
+  <title>토비의 스프링 학습실</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <button id="menuButton" class="icon-button" aria-label="목차 열기">☰</button>
+    <a class="brand" href="#top">토비의 스프링 학습실</a>
+    <div class="progress-wrap" title="완료한 대단원">
+      <span id="progressText">0%</span>
+      <div class="progress"><div id="progressBar"></div></div>
+    </div>
+    <button id="themeButton" class="icon-button" aria-label="색상 모드 변경">◐</button>
+  </header>
+
+  <div class="layout" id="top">
+    <aside id="sidebar" class="sidebar">
+      <div class="search-box">
+        <input id="searchInput" type="search" placeholder="목차·본문 검색" autocomplete="off">
+        <button id="searchButton">찾기</button>
+      </div>
+      <p class="search-help" id="searchHelp">Enter를 누르면 본문에서 찾습니다.</p>
+      <nav class="toc" aria-label="학습 목차"><ul>
+<li><a href="#전체-지도-코드-한-덩어리가-스프링-설계로-변하는-과정"
+id="toc-전체-지도-코드-한-덩어리가-스프링-설계로-변하는-과정">전체 지도:
+코드 한 덩어리가 스프링 설계로 변하는 과정</a>
+<ul>
+<li><a href="#출발점과-도착점" id="toc-출발점과-도착점">출발점과
+도착점</a></li>
+<li><a href="#장별-핵심-질문" id="toc-장별-핵심-질문">장별 핵심
+질문</a></li>
+<li><a href="#네-개의-기준으로-모든-코드를-읽기"
+id="toc-네-개의-기준으로-모든-코드를-읽기">네 개의 기준으로 모든 코드를
+읽기</a></li>
+<li><a href="#가장-헷갈리는-개념의-위치"
+id="toc-가장-헷갈리는-개념의-위치">가장 헷갈리는 개념의 위치</a></li>
+</ul></li>
+<li><a href="#선수지식-아무-배경-없이-시작하기"
+id="toc-선수지식-아무-배경-없이-시작하기">선수지식: 아무 배경 없이
+시작하기</a>
+<ul>
+<li><a href="#1-프로그램-클래스-객체" id="toc-1-프로그램-클래스-객체">1.
+프로그램, 클래스, 객체</a></li>
+<li><a href="#2-객체는-혼자-일하지-않는다"
+id="toc-2-객체는-혼자-일하지-않는다">2. 객체는 혼자 일하지
+않는다</a></li>
+<li><a href="#3-인터페이스와-다형성" id="toc-3-인터페이스와-다형성">3.
+인터페이스와 다형성</a></li>
+<li><a href="#4-객체지향-설계의-기본-어휘"
+id="toc-4-객체지향-설계의-기본-어휘">4. 객체지향 설계의 기본
+어휘</a></li>
+<li><a href="#5-데이터베이스와-jdbc" id="toc-5-데이터베이스와-jdbc">5.
+데이터베이스와 JDBC</a></li>
+<li><a href="#6-트랜잭션" id="toc-6-트랜잭션">6. 트랜잭션</a></li>
+<li><a href="#7-예외" id="toc-7-예외">7. 예외</a></li>
+<li><a href="#8-테스트의-기본-구조" id="toc-8-테스트의-기본-구조">8.
+테스트의 기본 구조</a></li>
+<li><a href="#9-람다-이전의-콜백-감각"
+id="toc-9-람다-이전의-콜백-감각">9. 람다 이전의 콜백 감각</a></li>
+<li><a href="#준비도-점검" id="toc-준비도-점검">준비도 점검</a></li>
+</ul></li>
+<li><a href="#1권-핵심-해설-문제를-해결하며-스프링에-도착하기"
+id="toc-1권-핵심-해설-문제를-해결하며-스프링에-도착하기">1권 핵심 해설:
+문제를 해결하며 스프링에 도착하기</a></li>
+<li><a href="#1장-오브젝트와-의존관계"
+id="toc-1장-오브젝트와-의존관계">1장. 오브젝트와 의존관계</a>
+<ul>
+<li><a href="#이-장의-질문" id="toc-이-장의-질문">이 장의 질문</a></li>
+<li><a href="#1단계-모든-것을-아는-dao"
+id="toc-1단계-모든-것을-아는-dao">1단계: 모든 것을 아는 DAO</a></li>
+<li><a href="#2단계-바뀌는-것을-인터페이스-뒤로"
+id="toc-2단계-바뀌는-것을-인터페이스-뒤로">2단계: 바뀌는 것을 인터페이스
+뒤로</a></li>
+<li><a href="#3단계-생성과-조립은-팩토리로"
+id="toc-3단계-생성과-조립은-팩토리로">3단계: 생성과 조립은
+팩토리로</a></li>
+<li><a href="#4단계-범용-팩토리인-스프링-컨테이너"
+id="toc-4단계-범용-팩토리인-스프링-컨테이너">4단계: 범용 팩토리인 스프링
+컨테이너</a></li>
+<li><a href="#ioc와-di의-차이" id="toc-ioc와-di의-차이">IoC와 DI의
+차이</a></li>
+<li><a href="#dependency-lookup과-di"
+id="toc-dependency-lookup과-di">Dependency Lookup과 DI</a></li>
+<li><a href="#싱글톤과-스코프" id="toc-싱글톤과-스코프">싱글톤과
+스코프</a></li>
+<li><a href="#1장-인출" id="toc-1장-인출">1장 인출</a></li>
+</ul></li>
+<li><a href="#2장-테스트" id="toc-2장-테스트">2장. 테스트</a>
+<ul>
+<li><a href="#이-장의-질문-1" id="toc-이-장의-질문-1">이 장의
+질문</a></li>
+<li><a href="#좋은-테스트의-성질" id="toc-좋은-테스트의-성질">좋은
+테스트의 성질</a></li>
+<li><a href="#tdd의-짧은-순환" id="toc-tdd의-짧은-순환">TDD의 짧은
+순환</a></li>
+<li><a href="#스프링-테스트-컨텍스트"
+id="toc-스프링-테스트-컨텍스트">스프링 테스트 컨텍스트</a></li>
+<li><a href="#단위-테스트와-통합-테스트"
+id="toc-단위-테스트와-통합-테스트">단위 테스트와 통합 테스트</a></li>
+<li><a href="#2장-인출" id="toc-2장-인출">2장 인출</a></li>
+</ul></li>
+<li><a href="#3장-템플릿" id="toc-3장-템플릿">3장. 템플릿</a>
+<ul>
+<li><a href="#이-장의-질문-2" id="toc-이-장의-질문-2">이 장의
+질문</a></li>
+<li><a href="#왜-단순-메서드-추출만으로-부족한가"
+id="toc-왜-단순-메서드-추출만으로-부족한가">왜 단순 메서드 추출만으로
+부족한가</a></li>
+<li><a href="#로컬-클래스와-익명-내부-클래스"
+id="toc-로컬-클래스와-익명-내부-클래스">로컬 클래스와 익명 내부
+클래스</a></li>
+<li><a href="#jdbctemplate로-연결"
+id="toc-jdbctemplate로-연결">JdbcTemplate로 연결</a></li>
+<li><a href="#직접-패턴을-적용하는-기준"
+id="toc-직접-패턴을-적용하는-기준">직접 패턴을 적용하는 기준</a></li>
+<li><a href="#3장-인출" id="toc-3장-인출">3장 인출</a></li>
+</ul></li>
+<li><a href="#4장-예외" id="toc-4장-예외">4장. 예외</a>
+<ul>
+<li><a href="#이-장의-질문-3" id="toc-이-장의-질문-3">이 장의
+질문</a></li>
+<li><a href="#가장-나쁜-두-방식" id="toc-가장-나쁜-두-방식">가장 나쁜 두
+방식</a></li>
+<li><a href="#세-가지-올바른-전략" id="toc-세-가지-올바른-전략">세 가지
+올바른 전략</a></li>
+<li><a href="#왜-데이터-접근-예외를-추상화하는가"
+id="toc-왜-데이터-접근-예외를-추상화하는가">왜 데이터 접근 예외를
+추상화하는가</a></li>
+<li><a href="#판단-순서" id="toc-판단-순서">판단 순서</a></li>
+<li><a href="#4장-인출" id="toc-4장-인출">4장 인출</a></li>
+</ul></li>
+<li><a href="#5장-서비스-추상화" id="toc-5장-서비스-추상화">5장. 서비스
+추상화</a>
+<ul>
+<li><a href="#이-장의-질문-4" id="toc-이-장의-질문-4">이 장의
+질문</a></li>
+<li><a href="#비즈니스-로직부터-분명하게"
+id="toc-비즈니스-로직부터-분명하게">비즈니스 로직부터 분명하게</a></li>
+<li><a href="#트랜잭션-경계가-서비스에-필요한-이유"
+id="toc-트랜잭션-경계가-서비스에-필요한-이유">트랜잭션 경계가 서비스에
+필요한 이유</a></li>
+<li><a href="#서비스-추상화" id="toc-서비스-추상화">서비스
+추상화</a></li>
+<li><a href="#psa와-계층" id="toc-psa와-계층">PSA와 계층</a></li>
+<li><a href="#5장-인출" id="toc-5장-인출">5장 인출</a></li>
+</ul></li>
+<li><a href="#6장-aop" id="toc-6장-aop">6장. AOP</a>
+<ul>
+<li><a href="#이-장의-질문-5" id="toc-이-장의-질문-5">이 장의
+질문</a></li>
+<li><a href="#핵심-기능과-부가기능" id="toc-핵심-기능과-부가기능">핵심
+기능과 부가기능</a></li>
+<li><a href="#프록시-데코레이터-프록시-패턴"
+id="toc-프록시-데코레이터-프록시-패턴">프록시, 데코레이터, 프록시
+패턴</a></li>
+<li><a href="#수동-프록시의-문제" id="toc-수동-프록시의-문제">수동
+프록시의 문제</a></li>
+<li><a href="#factorybean에서-자동-프록시-생성까지"
+id="toc-factorybean에서-자동-프록시-생성까지">FactoryBean에서 자동
+프록시 생성까지</a></li>
+<li><a href="#aop란-무엇인가" id="toc-aop란-무엇인가">AOP란
+무엇인가</a></li>
+<li><a href="#고립된-단위-테스트와-mockito"
+id="toc-고립된-단위-테스트와-mockito">고립된 단위 테스트와
+Mockito</a></li>
+<li><a href="#프록시-aop의-중요한-제한"
+id="toc-프록시-aop의-중요한-제한">프록시 AOP의 중요한 제한</a></li>
+<li><a href="#6장-인출" id="toc-6장-인출">6장 인출</a></li>
+</ul></li>
+<li><a href="#8장-스프링이란-무엇인가"
+id="toc-8장-스프링이란-무엇인가">8장. 스프링이란 무엇인가</a>
+<ul>
+<li><a href="#정의를-분해하기" id="toc-정의를-분해하기">정의를
+분해하기</a></li>
+<li><a href="#스프링이-상대하는-두-복잡성"
+id="toc-스프링이-상대하는-두-복잡성">스프링이 상대하는 두
+복잡성</a></li>
+<li><a href="#pojo" id="toc-pojo">POJO</a></li>
+<li><a href="#diaoppsa의-합성" id="toc-diaoppsa의-합성">DI·AOP·PSA의
+합성</a></li>
+<li><a href="#8장-인출" id="toc-8장-인출">8장 인출</a></li>
+</ul></li>
+<li><a href="#1권-최종-연결-문제" id="toc-1권-최종-연결-문제">1권 최종
+연결 문제</a></li>
+<li><a href="#2권-보충-aopltw테스트-컨텍스트"
+id="toc-2권-보충-aopltw테스트-컨텍스트">2권 보충: AOP·LTW·테스트
+컨텍스트</a></li>
+<li><a href="#5장-aop와-ltw" id="toc-5장-aop와-ltw">5장. AOP와 LTW</a>
+<ul>
+<li><a href="#세-가지-aop-적용-시점" id="toc-세-가지-aop-적용-시점">세
+가지 AOP 적용 시점</a></li>
+<li><a href="#aspect를-구성하는-요소"
+id="toc-aspect를-구성하는-요소">Aspect를 구성하는 요소</a></li>
+<li><a href="#자동-프록시-생성" id="toc-자동-프록시-생성">자동 프록시
+생성</a></li>
+<li><a href="#jdk-프록시와-클래스-프록시"
+id="toc-jdk-프록시와-클래스-프록시">JDK 프록시와 클래스 프록시</a></li>
+<li><a href="#ltw는-언제-생각하는가"
+id="toc-ltw는-언제-생각하는가">LTW는 언제 생각하는가</a></li>
+<li><a href="#확인-문제" id="toc-확인-문제">확인 문제</a></li>
+</ul></li>
+<li><a href="#6장-테스트-컨텍스트-프레임워크"
+id="toc-6장-테스트-컨텍스트-프레임워크">6장. 테스트 컨텍스트
+프레임워크</a>
+<ul>
+<li><a href="#큰-흐름" id="toc-큰-흐름">큰 흐름</a></li>
+<li><a href="#dirtiescontext"
+id="toc-dirtiescontext"><code>@DirtiesContext</code></a></li>
+<li><a href="#테스트-범위-선택" id="toc-테스트-범위-선택">테스트 범위
+선택</a></li>
+<li><a href="#확인-문제-1" id="toc-확인-문제-1">확인 문제</a></li>
+</ul></li>
+<li><a href="#두-자료에서-추가로-연결되는-현대적-주제"
+id="toc-두-자료에서-추가로-연결되는-현대적-주제">두 자료에서 추가로
+연결되는 현대적 주제</a></li>
+<li><a href="#회상-워크북" id="toc-회상-워크북">회상 워크북</a></li>
+<li><a href="#1단계-필수-20문항" id="toc-1단계-필수-20문항">1단계: 필수
+20문항</a></li>
+<li><a href="#2단계-답안-기준" id="toc-2단계-답안-기준">2단계: 답안
+기준</a></li>
+<li><a href="#3단계-코드-진단-문제" id="toc-3단계-코드-진단-문제">3단계:
+코드 진단 문제</a>
+<ul>
+<li><a href="#문제-a" id="toc-문제-a">문제 A</a></li>
+<li><a href="#문제-b" id="toc-문제-b">문제 B</a></li>
+<li><a href="#문제-c" id="toc-문제-c">문제 C</a></li>
+<li><a href="#문제-d" id="toc-문제-d">문제 D</a></li>
+</ul></li>
+<li><a href="#4단계-백지-지도" id="toc-4단계-백지-지도">4단계: 백지
+지도</a></li>
+<li><a href="#5단계-설명-시험" id="toc-5단계-설명-시험">5단계: 설명
+시험</a></li>
+<li><a href="#초심자-용어-사전" id="toc-초심자-용어-사전">초심자 용어
+사전</a></li>
+<li><a href="#실제-학습-계획과-기록지"
+id="toc-실제-학습-계획과-기록지">실제 학습 계획과 기록지</a>
+<ul>
+<li><a href="#결론부터-이렇게-공부한다"
+id="toc-결론부터-이렇게-공부한다">결론부터: 이렇게 공부한다</a></li>
+<li><a href="#0주차-환경-준비" id="toc-0주차-환경-준비">0주차: 환경
+준비</a></li>
+<li><a href="#12주차-java와-객체-협력"
+id="toc-12주차-java와-객체-협력">1~2주차: Java와 객체 협력</a></li>
+<li><a href="#3주차-sqljdbc트랜잭션-기초"
+id="toc-3주차-sqljdbc트랜잭션-기초">3주차: SQL·JDBC·트랜잭션
+기초</a></li>
+<li><a href="#4주차-1장-iocdi" id="toc-4주차-1장-iocdi">4주차: 1장
+IoC/DI</a></li>
+<li><a href="#5주차-2장-테스트" id="toc-5주차-2장-테스트">5주차: 2장
+테스트</a></li>
+<li><a href="#6주차-34장-템플릿과-예외"
+id="toc-6주차-34장-템플릿과-예외">6주차: 3~4장 템플릿과 예외</a></li>
+<li><a href="#7주차-5장-트랜잭션과-psa"
+id="toc-7주차-5장-트랜잭션과-psa">7주차: 5장 트랜잭션과 PSA</a></li>
+<li><a href="#8주차-6장-aop" id="toc-8주차-6장-aop">8주차: 6장
+AOP</a></li>
+<li><a href="#9주차-8장과-전체-통합"
+id="toc-9주차-8장과-전체-통합">9주차: 8장과 전체 통합</a></li>
+<li><a href="#10주차-2권-보충과-현대-스프링-연결"
+id="toc-10주차-2권-보충과-현대-스프링-연결">10주차: 2권 보충과 현대
+스프링 연결</a></li>
+<li><a href="#회독-계획" id="toc-회독-계획">회독 계획</a></li>
+<li><a href="#일일-기록-템플릿" id="toc-일일-기록-템플릿">일일 기록
+템플릿</a></li>
+<li><a href="#진도-판단-규칙" id="toc-진도-판단-규칙">진도 판단
+규칙</a></li>
+</ul></li>
+<li><a href="#활용-자료와-범위" id="toc-활용-자료와-범위">활용 자료와
+범위</a>
+<ul>
+<li><a href="#주-자료" id="toc-주-자료">주 자료</a></li>
+<li><a href="#사용-원칙" id="toc-사용-원칙">사용 원칙</a></li>
+</ul></li>
+</ul></nav>
+      <div class="source-links">
+        <a href="https://incheol-jung.gitbook.io/docs/study/tobys-spring" target="_blank" rel="noreferrer">GitBook 원자료</a>
+        <a href="https://github.com/pjok1122/Spring-Summary" target="_blank" rel="noreferrer">GitHub 보충자료</a>
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="hero">
+        <p class="eyebrow">BEGINNER STUDY GUIDE</p>
+        <h1>토비의 스프링 3.1</h1>
+        <p>배경지식 없이 시작해 IoC/DI, 테스트, 트랜잭션, AOP를 연결하는 학습 교재입니다.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#전체-지도-코드-한-덩어리가-스프링-설계로-변하는-과정">전체 지도부터 보기</a>
+          <a class="secondary" href="#실제-학습-계획과-기록지">10주 계획 보기</a>
+        </div>
+      </section>
+      <h1 id="전체-지도-코드-한-덩어리가-스프링-설계로-변하는-과정">전체
+      지도: 코드 한 덩어리가 스프링 설계로 변하는 과정</h1>
+      <h2 id="출발점과-도착점">출발점과 도착점</h2>
+      <p>출발점은 한 클래스가 다음 일을 모두 하는
+      <code>UserDao</code>다.</p>
+      <ul>
+      <li>DB 드라이버 선택</li>
+      <li>연결 생성</li>
+      <li>SQL 작성과 실행</li>
+      <li>결과를 <code>User</code> 객체로 변환</li>
+      <li>자원 정리</li>
+      <li>예외 처리</li>
+      <li>트랜잭션 처리</li>
+      </ul>
+      <p>작동은 하지만 하나가 바뀌면 전체를 건드려야 하고, DB 없이
+      테스트하기도 어렵다. 책은 이 코드를 한 번에 완성형으로 바꾸지
+      않는다. 문제를 하나씩 만나고 책임을 분리하면서 스프링의 핵심
+      개념을 끌어낸다.</p>
+      <pre class="text"><code>거대한 UserDao
+  ↓ 관심사 분리
+ConnectionMaker 인터페이스
+  ↓ 객체 생성·연결도 분리
+DaoFactory
+  ↓ 범용 객체 관리기로 확장
+IoC 컨테이너 / ApplicationContext
+  ↓ 협력 객체를 외부에서 전달
+DI
+  ↓ 변경을 안심하고 수행할 안전망
+자동화된 테스트
+  ↓ 반복 JDBC 흐름 분리
+템플릿/콜백
+  ↓ 기술별 예외를 일관된 의미로 변환
+예외 추상화
+  ↓ 여러 트랜잭션 기술을 같은 방식으로 사용
+서비스 추상화(PSA)
+  ↓ 흩어진 트랜잭션 부가기능 분리
+프록시 기반 AOP
+  ↓
+POJO가 핵심 비즈니스 로직에 집중</code></pre>
+      <h2 id="장별-핵심-질문">장별 핵심 질문</h2>
+      <table>
+      <thead>
+      <tr class="header">
+      <th>범위</th>
+      <th>처음 만나는 문제</th>
+      <th>얻게 되는 도구</th>
+      <th>한 문장 기억</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>1장</td>
+      <td>객체가 필요한 객체까지 직접 만들면 변경이 퍼진다</td>
+      <td>IoC, DI, 컨테이너</td>
+      <td>사용과 생성을 분리한다</td>
+      </tr>
+      <tr class="even">
+      <td>2장</td>
+      <td>수정한 코드가 정말 맞는지 확신하기 어렵다</td>
+      <td>JUnit, 독립 테스트, 픽스처</td>
+      <td>테스트는 변화의 안전망이다</td>
+      </tr>
+      <tr class="odd">
+      <td>3장</td>
+      <td>JDBC의 준비·정리 코드가 매번 반복된다</td>
+      <td>전략, 템플릿/콜백</td>
+      <td>흐름과 변하는 작업을 분리한다</td>
+      </tr>
+      <tr class="even">
+      <td>4장</td>
+      <td>예외를 삼키거나 무조건 던지면 실패 의미가 사라진다</td>
+      <td>복구·회피·전환</td>
+      <td>처리할 수 있는 곳에 의미 있게 전달한다</td>
+      </tr>
+      <tr class="odd">
+      <td>5장</td>
+      <td>여러 DB 작업을 하나의 성공/실패 단위로 묶어야 한다</td>
+      <td>트랜잭션, 동기화, PSA</td>
+      <td>구현 기술보다 서비스 경계를 의존한다</td>
+      </tr>
+      <tr class="even">
+      <td>6장</td>
+      <td>트랜잭션 코드가 모든 서비스 메서드에 침투한다</td>
+      <td>프록시, 포인트컷, AOP</td>
+      <td>핵심과 횡단 관심사를 분리한다</td>
+      </tr>
+      <tr class="odd">
+      <td>8장</td>
+      <td>개별 기술은 알지만 스프링의 목적이 흐릿하다</td>
+      <td>POJO, DI·AOP·PSA</td>
+      <td>복잡성을 관리해 객체지향을 지킨다</td>
+      </tr>
+      <tr class="even">
+      <td>2권 5장</td>
+      <td>프록시를 어떻게 대규모로 자동 적용하는가</td>
+      <td>Advisor, AspectJ, LTW</td>
+      <td>적용 대상과 부가기능을 선언한다</td>
+      </tr>
+      <tr class="odd">
+      <td>2권 6장</td>
+      <td>테스트마다 컨테이너를 만들면 느리고 설정이 흩어진다</td>
+      <td>TestContext</td>
+      <td>테스트 컨텍스트를 캐시·공유한다</td>
+      </tr>
+      </tbody>
+      </table>
+      <h2 id="네-개의-기준으로-모든-코드를-읽기">네 개의 기준으로 모든
+      코드를 읽기</h2>
+      <p>새 코드가 등장할 때 아래 네 질문을 반복한다.</p>
+      <ol type="1">
+      <li><strong>책임</strong>: 이 객체는 무엇을 알아야 하고 무엇을
+      하면 안 되는가?</li>
+      <li><strong>변경</strong>: 어떤 이유로 바뀌는 코드들이 한곳에
+      섞였는가?</li>
+      <li><strong>의존</strong>: 구체 클래스 대신 인터페이스를 의존할 수
+      있는가?</li>
+      <li><strong>제어</strong>: 객체를 누가 만들고, 연결하고,
+      호출하는가?</li>
+      </ol>
+      <h2 id="가장-헷갈리는-개념의-위치">가장 헷갈리는 개념의 위치</h2>
+      <ul>
+      <li><strong>IoC</strong>는 제어권의 방향에 관한 큰 원리다.</li>
+      <li><strong>DI</strong>는 IoC를 구현하는 대표 방식으로, 필요한
+      의존 객체를 외부가 넣어준다.</li>
+      <li><strong>AOP</strong>는 여러 객체에 흩어지는 부가기능을 한
+      모듈로 분리한다.</li>
+      <li><strong>PSA</strong>는 서로 다른 기술을 일관된 인터페이스 뒤에
+      숨긴다.</li>
+      <li>이 셋은 경쟁 관계가 아니다. DI가 객체 연결을 유연하게 만들기
+      때문에 AOP와 PSA도 자연스럽게 적용할 수 있다.</li>
+      </ul>
+      <h1 id="선수지식-아무-배경-없이-시작하기">선수지식: 아무 배경 없이
+      시작하기</h1>
+      <h2 id="1-프로그램-클래스-객체">1. 프로그램, 클래스, 객체</h2>
+      <p>프로그램은 컴퓨터가 실행하는 명령의 모음이다. Java에서는 관련
+      데이터와 동작을 <code>class</code>라는 설계도에 묶는다. 그
+      설계도로 실행 중에 만든 실체가 <code>object</code>다.</p>
+      <div class="sourceCode" id="cb2"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> User <span class="op">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="bu">String</span> id<span class="op">;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">User</span><span class="op">(</span><span class="bu">String</span> id<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">id</span> <span class="op">=</span> id<span class="op">;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">String</span> <span class="fu">getId</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> id<span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>User user <span class="op">=</span> <span class="kw">new</span> <span class="fu">User</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">);</span> <span class="co">// 객체 생성</span></span></code></pre></div>
+      <ul>
+      <li>필드: 객체가 기억하는 상태 (<code>id</code>)</li>
+      <li>메서드: 객체가 수행하는 동작 (<code>getId</code>)</li>
+      <li>생성자: 객체가 처음 만들어질 때 필요한 값을 받는 특별한
+      코드</li>
+      <li>참조: 실제 객체를 가리키는 변수 (<code>user</code>)</li>
+      </ul>
+      <h2 id="2-객체는-혼자-일하지-않는다">2. 객체는 혼자 일하지
+      않는다</h2>
+      <p><code>UserService</code>가 사용자를 저장하려면
+      <code>UserDao</code>의 도움이 필요하다. 이때
+      <code>UserService</code>는 <code>UserDao</code>에
+      <strong>의존한다</strong>.</p>
+      <div class="sourceCode" id="cb3"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserService <span class="op">{</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> UserDao userDao<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">UserService</span><span class="op">(</span>UserDao userDao<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">userDao</span> <span class="op">=</span> userDao<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>의존은 나쁜 것이 아니다. 소프트웨어는 협력으로 동작한다. 문제는
+      상위 정책 코드가 특정 구현에 단단히 묶이는 것이다.</p>
+      <div class="sourceCode" id="cb4"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">// 강한 결합: 서비스가 구현체 생성 방법까지 안다.</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">final</span> UserDao userDao <span class="op">=</span> <span class="kw">new</span> <span class="fu">MySqlUserDao</span><span class="op">();</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">// 느슨한 결합: 서비스는 약속만 알고 구현체를 외부에서 받는다.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">final</span> UserRepository userRepository<span class="op">;</span></span></code></pre></div>
+      <h2 id="3-인터페이스와-다형성">3. 인터페이스와 다형성</h2>
+      <p>인터페이스는 “이 역할을 맡으려면 이런 동작을 제공하라”는
+      약속이다.</p>
+      <div class="sourceCode" id="cb5"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> MessageSender <span class="op">{</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">send</span><span class="op">(</span><span class="bu">String</span> message<span class="op">);</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> EmailSender <span class="kw">implements</span> MessageSender <span class="op">{</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">send</span><span class="op">(</span><span class="bu">String</span> message<span class="op">)</span> <span class="op">{</span> <span class="co">/* 이메일 전송 */</span> <span class="op">}</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FakeSender <span class="kw">implements</span> MessageSender <span class="op">{</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">send</span><span class="op">(</span><span class="bu">String</span> message<span class="op">)</span> <span class="op">{</span> <span class="co">/* 테스트용 기록 */</span> <span class="op">}</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>클라이언트가 <code>EmailSender</code>가 아니라
+      <code>MessageSender</code>를 바라보면 이메일 구현을 테스트용
+      구현이나 문자 구현으로 교체할 수 있다. 같은 호출이 실제 객체에
+      따라 다르게 동작하는 성질이 <strong>다형성</strong>이다.</p>
+      <h2 id="4-객체지향-설계의-기본-어휘">4. 객체지향 설계의 기본
+      어휘</h2>
+      <h3 id="관심사의-분리">관심사의 분리</h3>
+      <p>서로 다른 이유로 변하는 코드를 분리한다. SQL 변경과 DB 연결
+      방식 변경은 이유가 다르므로 같은 메서드에 뒤섞지 않는다.</p>
+      <h3 id="응집도와-결합도">응집도와 결합도</h3>
+      <ul>
+      <li>높은 응집도: 한 모듈의 코드가 하나의 뚜렷한 책임을 위해 모여
+      있다.</li>
+      <li>낮은 결합도: 한 모듈의 변경이 다른 모듈에 적게 전파된다.</li>
+      </ul>
+      <h3 id="ocp와-srp">OCP와 SRP</h3>
+      <ul>
+      <li>개방-폐쇄 원칙(OCP): 새 기능을 <strong>확장</strong>하기는
+      쉽고, 이미 검증된 코드를 <strong>수정</strong>할 필요는 적어야
+      한다.</li>
+      <li>단일 책임 원칙(SRP): 클래스가 변경되는 이유는 하나여야
+      한다.</li>
+      </ul>
+      <p>이 원칙은 “클래스는 무조건 작아야 한다”는 규칙이 아니다. 변경
+      이유와 책임의 경계를 판단하는 도구다.</p>
+      <h3 id="자주-등장하는-패턴">자주 등장하는 패턴</h3>
+      <ul>
+      <li>전략 패턴: 바뀌는 알고리즘을 인터페이스 뒤로 분리해
+      교체한다.</li>
+      <li>팩토리: 객체를 생성하고 조립하는 책임을 맡는다.</li>
+      <li>템플릿 메서드: 상위 클래스가 흐름을 정하고 일부 단계를 하위
+      클래스가 구현한다.</li>
+      <li>데코레이터: 같은 인터페이스를 유지한 채 대상 앞뒤에 기능을
+      덧붙인다.</li>
+      <li>프록시: 실제 대상 대신 앞에 서서 접근 제어·지연 로딩·부가기능
+      등을 수행한다.</li>
+      </ul>
+      <h2 id="5-데이터베이스와-jdbc">5. 데이터베이스와 JDBC</h2>
+      <p>관계형 데이터베이스는 데이터를 표 형태로 저장한다. SQL은
+      데이터를 추가·조회·수정·삭제하는 언어다.</p>
+      <div class="sourceCode" id="cb6"><pre
+      class="sourceCode sql"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> users(<span class="kw">id</span>, name) <span class="kw">VALUES</span> (<span class="st">&#39;alice&#39;</span>, <span class="st">&#39;앨리스&#39;</span>);</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="kw">id</span>, name <span class="kw">FROM</span> users <span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span> <span class="st">&#39;alice&#39;</span>;</span></code></pre></div>
+      <p>JDBC는 Java가 DB와 대화할 때 사용하는 표준 API다. 일반 흐름은
+      다음과 같다.</p>
+      <ol type="1">
+      <li><code>Connection</code> 획득</li>
+      <li>SQL을 담을 <code>PreparedStatement</code> 생성</li>
+      <li>SQL 실행</li>
+      <li>조회라면 <code>ResultSet</code>을 Java 객체로 변환</li>
+      <li>사용한 자원 닫기</li>
+      </ol>
+      <p>DAO(Data Access Object)는 이런 데이터 접근 책임을 전담하는
+      객체다. JDBC는 표준 인터페이스지만 연결 생성·자원 정리·예외 처리
+      코드가 반복되기 쉬우며, 이것이 1~4장의 재료가 된다.</p>
+      <h2 id="6-트랜잭션">6. 트랜잭션</h2>
+      <p>트랜잭션은 여러 작업을 하나의 논리적 작업 단위로 묶는다.
+      계좌이체에서 출금만 되고 입금이 실패하면 안 된다.</p>
+      <pre class="text"><code>트랜잭션 시작
+  A 계좌에서 10,000원 차감
+  B 계좌에 10,000원 추가
+둘 다 성공 → commit
+하나라도 실패 → rollback</code></pre>
+      <ul>
+      <li>원자성: 전부 성공하거나 전부 실패한다.</li>
+      <li><code>commit</code>: 변경을 확정한다.</li>
+      <li><code>rollback</code>: 변경을 취소한다.</li>
+      <li>트랜잭션 경계: 어디서 시작하고 끝낼지 정한 범위다.</li>
+      </ul>
+      <p>여러 DAO 호출을 묶어야 하므로 보통 서비스 계층이 경계를 잡는다.
+      그러나 서비스 코드에 DB API가 들어오면 비즈니스 로직과 기술 코드가
+      섞인다. 5~6장은 이를 해결한다.</p>
+      <h2 id="7-예외">7. 예외</h2>
+      <p>예외는 정상 흐름을 계속할 수 없는 상황을 나타내는 객체다.</p>
+      <div class="sourceCode" id="cb8"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    repository<span class="op">.</span><span class="fu">save</span><span class="op">(</span>user<span class="op">);</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span>DuplicateKeyException e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 중복 사용자라는 의미에 맞는 대응</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <ul>
+      <li>체크 예외: 컴파일러가 처리 또는 선언을 강제한다.</li>
+      <li>언체크 예외: <code>RuntimeException</code> 계열로 강제하지
+      않는다.</li>
+      <li>예외를 잡고 아무것도 하지 않으면 원인과 실패 사실이
+      사라진다.</li>
+      <li>의미 없는 <code>throws Exception</code>도 호출자에게 책임만
+      떠넘긴다.</li>
+      </ul>
+      <h2 id="8-테스트의-기본-구조">8. 테스트의 기본 구조</h2>
+      <p>테스트는 준비(Arrange), 실행(Act), 검증(Assert)으로 읽는다.</p>
+      <div class="sourceCode" id="cb9"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Test</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">findsSavedUser</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 준비</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    User user <span class="op">=</span> <span class="kw">new</span> <span class="fu">User</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">);</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    repository<span class="op">.</span><span class="fu">save</span><span class="op">(</span>user<span class="op">);</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 실행</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    User found <span class="op">=</span> repository<span class="op">.</span><span class="fu">findById</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">);</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 검증</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assertEquals</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">,</span> found<span class="op">.</span><span class="fu">getId</span><span class="op">());</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <ul>
+      <li>단위 테스트: 작은 대상 하나를 빠르고 고립되게 확인한다.</li>
+      <li>통합 테스트: DB나 스프링 컨테이너 등 여러 요소의 결합을
+      확인한다.</li>
+      <li>테스트 픽스처: 테스트에 필요한 객체와 데이터의 준비
+      상태다.</li>
+      <li>테스트 더블: 진짜 협력 객체 대신 쓰는 가짜 객체다. Stub은 답을
+      제공하고, Mock은 상호작용도 검증한다.</li>
+      </ul>
+      <h2 id="9-람다-이전의-콜백-감각">9. 람다 이전의 콜백 감각</h2>
+      <p>어떤 동작을 객체로 전달하면 공통 흐름 속 특정 단계만 바꿀 수
+      있다.</p>
+      <div class="sourceCode" id="cb10"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> Work <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">run</span><span class="op">();</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">execute</span><span class="op">(</span>Work work<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;공통 준비&quot;</span><span class="op">);</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    work<span class="op">.</span><span class="fu">run</span><span class="op">();</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;공통 정리&quot;</span><span class="op">);</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p><code>execute</code>는 템플릿, 전달한 <code>Work</code>는
+      콜백에 가깝다. 현대 Java에서는 함수형 인터페이스와 람다로 더
+      간결하게 표현하지만 책의 익명 내부 클래스도 같은 원리를
+      보여준다.</p>
+      <h2 id="준비도-점검">준비도 점검</h2>
+      <p>다음 질문에 한두 문장으로 답할 수 있으면 본편으로 가자.</p>
+      <ol type="1">
+      <li>클래스와 객체는 어떻게 다른가?</li>
+      <li>인터페이스를 사이에 두면 무엇을 교체할 수 있는가?</li>
+      <li>DAO는 어떤 책임을 맡는가?</li>
+      <li>트랜잭션에서 rollback은 왜 필요한가?</li>
+      <li>단위 테스트와 통합 테스트의 목적은 어떻게 다른가?</li>
+      </ol>
+      <h1 id="1권-핵심-해설-문제를-해결하며-스프링에-도착하기">1권 핵심
+      해설: 문제를 해결하며 스프링에 도착하기</h1>
+      <p>이 문서는 GitBook의 1~6장과 8장을 초심자의 눈높이로 다시
+      연결한다. 세부 API보다 각 단계에서 <strong>왜 기존 코드가
+      불편했고, 어떤 책임을 어디로 옮겼는지</strong>에 집중한다.</p>
+      <hr />
+      <h1 id="1장-오브젝트와-의존관계">1장. 오브젝트와 의존관계</h1>
+      <h2 id="이-장의-질문">이 장의 질문</h2>
+      <blockquote>
+      <p><code>UserDao</code>가 DB 연결 객체를 직접 만들면 왜 문제가
+      되고, 스프링은 무엇을 대신하는가?</p>
+      </blockquote>
+      <h2 id="1단계-모든-것을-아는-dao">1단계: 모든 것을 아는 DAO</h2>
+      <p>초기 <code>UserDao</code>는 SQL 처리뿐 아니라 MySQL 드라이버와
+      접속 주소까지 안다.</p>
+      <div class="sourceCode" id="cb11"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserDao <span class="op">{</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">add</span><span class="op">(</span>User user<span class="op">)</span> <span class="kw">throws</span> <span class="bu">SQLException</span> <span class="op">{</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">Connection</span> connection <span class="op">=</span> <span class="bu">DriverManager</span><span class="op">.</span><span class="fu">getConnection</span><span class="op">(</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;jdbc:mysql://localhost/app&quot;</span><span class="op">,</span> <span class="st">&quot;user&quot;</span><span class="op">,</span> <span class="st">&quot;password&quot;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">);</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// SQL 생성, 실행, 자원 정리...</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>DB 접속 방식과 사용자 저장 로직은 서로 다른 이유로 변한다. 둘을
+      한곳에 두면 DB가 바뀔 때 검증된 SQL 코드까지 수정해야 한다.</p>
+      <h2 id="2단계-바뀌는-것을-인터페이스-뒤로">2단계: 바뀌는 것을
+      인터페이스 뒤로</h2>
+      <div class="sourceCode" id="cb12"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> ConnectionMaker <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Connection</span> <span class="fu">makeConnection</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">SQLException</span><span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserDao <span class="op">{</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> ConnectionMaker connectionMaker<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">UserDao</span><span class="op">(</span>ConnectionMaker connectionMaker<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">connectionMaker</span> <span class="op">=</span> connectionMaker<span class="op">;</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>이제 <code>UserDao</code>는 연결이 <em>어떻게</em> 만들어지는지
+      모른다. 단지 <code>ConnectionMaker</code>의 약속을 사용한다.
+      그러나 누군가는 실제 구현체를 만들고 연결해야 한다.</p>
+      <h2 id="3단계-생성과-조립은-팩토리로">3단계: 생성과 조립은
+      팩토리로</h2>
+      <div class="sourceCode" id="cb13"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DaoFactory <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    UserDao <span class="fu">userDao</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">UserDao</span><span class="op">(</span><span class="fu">connectionMaker</span><span class="op">());</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    ConnectionMaker <span class="fu">connectionMaker</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">MySqlConnectionMaker</span><span class="op">();</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p><code>UserDao</code>는 사용 책임, <code>DaoFactory</code>는
+      구성 책임을 가진다. 애플리케이션의 객체가 자신이 사용할 구현을
+      직접 선택하던 <strong>제어권이 외부로 이동</strong>했다. 이것이
+      IoC(Inversion of Control, 제어의 역전)의 핵심 감각이다.</p>
+      <h2 id="4단계-범용-팩토리인-스프링-컨테이너">4단계: 범용 팩토리인
+      스프링 컨테이너</h2>
+      <div class="sourceCode" id="cb14"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Configuration</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> AppConfig <span class="op">{</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    UserDao <span class="fu">userDao</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">UserDao</span><span class="op">(</span><span class="fu">connectionMaker</span><span class="op">());</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Bean</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    ConnectionMaker <span class="fu">connectionMaker</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">new</span> <span class="fu">MySqlConnectionMaker</span><span class="op">();</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <ul>
+      <li>Bean: 스프링 컨테이너가 관리하는 객체</li>
+      <li>BeanFactory: 빈 생성·조회·연결을 담당하는 최소 컨테이너</li>
+      <li>ApplicationContext: BeanFactory 기능과 이벤트, 리소스, 메시지
+      등 애플리케이션 서비스를 함께 제공하는 컨테이너</li>
+      <li>설정 메타정보: 어떤 객체를 만들고 어떻게 연결할지 적은
+      정보</li>
+      </ul>
+      <p>GitHub 보충 자료는 컨테이너 구현을
+      <code>GenericApplicationContext</code>,
+      <code>GenericXmlApplicationContext</code>,
+      <code>WebApplicationContext</code> 등으로 더 세분한다. 초심자는
+      먼저 “설정 형식이나 실행 환경이 달라도, 컨테이너는 메타정보를 읽어
+      빈을 만들고 연결한다”만 잡으면 된다.</p>
+      <h2 id="ioc와-di의-차이">IoC와 DI의 차이</h2>
+      <ul>
+      <li>IoC: 객체 생성·호출 등의 제어권이 프레임워크나 외부 구성
+      객체로 넘어가는 넓은 원리</li>
+      <li>DI: 한 객체가 사용할 다른 객체를 외부에서 전달받는 구체적인
+      방법</li>
+      </ul>
+      <p>생성자 주입의 예:</p>
+      <div class="sourceCode" id="cb15"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserService <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> UserDao userDao<span class="op">;</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">UserService</span><span class="op">(</span>UserDao userDao<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span><span class="fu">userDao</span> <span class="op">=</span> userDao<span class="op">;</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>생성자 주입은 객체가 완성되는 순간 필수 의존성이 갖춰지고,
+      필드를 <code>final</code>로 둘 수 있으며, 스프링 없이도 테스트하기
+      쉽다. 원문에는 setter나 일반 메서드 주입도 나오지만 필수
+      의존성에는 생성자 주입을 우선 이해하자.</p>
+      <h2 id="dependency-lookup과-di">Dependency Lookup과 DI</h2>
+      <div class="sourceCode" id="cb16"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">// DL: 필요한 객체가 컨테이너를 직접 조회</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>UserDao dao <span class="op">=</span> context<span class="op">.</span><span class="fu">getBean</span><span class="op">(</span>UserDao<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co">// DI: 외부가 생성자 등을 통해 전달</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="kw">new</span> <span class="fu">UserService</span><span class="op">(</span>userDao<span class="op">);</span></span></code></pre></div>
+      <p>DL을 비즈니스 객체 곳곳에서 사용하면 스프링 API에 의존하게
+      된다. 보통 시작 지점에서만 컨테이너를 조회하고 내부 객체들은 DI로
+      연결한다.</p>
+      <h2 id="싱글톤과-스코프">싱글톤과 스코프</h2>
+      <p>기본적으로 스프링은 빈 하나를 만들어 컨테이너 안에서 공유한다.
+      전통적인 <code>Singleton</code> 패턴처럼 클래스가 private 생성자와
+      전역 접근자를 강제하지 않으므로 상속·테스트·교체가 더 쉽다.</p>
+      <p>주의: 공유되는 싱글톤 빈에 요청별 사용자 정보 같은 변경 가능한
+      상태를 필드로 저장하면 여러 스레드가 서로의 값을 덮어쓸 수 있다.
+      서비스 빈은 대개 상태 없이(stateless) 만든다.</p>
+      <ul>
+      <li>singleton: 컨테이너당 보통 한 인스턴스</li>
+      <li>prototype: 요청할 때마다 새 인스턴스</li>
+      <li>request/session: 웹 요청 또는 세션 수명에 맞춘 인스턴스</li>
+      </ul>
+      <p>GitHub 자료는 <code>@ComponentScan</code>,
+      <code>@Autowired</code>, <code>@Primary</code>,
+      <code>@Qualifier</code>, 프로파일도 다룬다. 이것들은 <strong>빈을
+      발견하고 후보를 결정하고 환경별 구성을 바꾸는 도구</strong>이지
+      DI의 목적 그 자체가 아니다.</p>
+      <h2 id="1장-인출">1장 인출</h2>
+      <ol type="1">
+      <li><code>UserDao</code>가
+      <code>new MySqlConnectionMaker()</code>를 직접 호출하면 어떤
+      변경이 전파되는가?</li>
+      <li>팩토리를 분리한 순간 누구에게 제어권이 이동했는가?</li>
+      <li>IoC와 DI를 각각 한 문장으로 설명하라.</li>
+      <li>스프링 싱글톤 빈에 변경 가능한 필드를 두면 왜 위험한가?</li>
+      </ol>
+      <hr />
+      <h1 id="2장-테스트">2장. 테스트</h1>
+      <h2 id="이-장의-질문-1">이 장의 질문</h2>
+      <blockquote>
+      <p>리팩터링을 계속하면서도 동작이 깨지지 않았다고 어떻게
+      확신하는가?</p>
+      </blockquote>
+      <p><code>main()</code>으로 DAO를 실행하고 콘솔 문구를 사람이
+      확인하는 방식에는 문제가 있다.</p>
+      <ul>
+      <li>매번 사람이 결과를 읽어야 한다.</li>
+      <li>여러 테스트를 일괄 실행하기 어렵다.</li>
+      <li>이전 실행의 DB 데이터가 다음 실행 결과에 영향을 준다.</li>
+      <li>실패 원인이 명확히 보고되지 않는다.</li>
+      </ul>
+      <p>JUnit 테스트는 검증을 코드로 만든다.</p>
+      <div class="sourceCode" id="cb17"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Test</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">addAndGet</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    dao<span class="op">.</span><span class="fu">deleteAll</span><span class="op">();</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    User user <span class="op">=</span> <span class="kw">new</span> <span class="fu">User</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">,</span> <span class="st">&quot;앨리스&quot;</span><span class="op">);</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    dao<span class="op">.</span><span class="fu">add</span><span class="op">(</span>user<span class="op">);</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    User found <span class="op">=</span> dao<span class="op">.</span><span class="fu">get</span><span class="op">(</span><span class="st">&quot;alice&quot;</span><span class="op">);</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">assertEquals</span><span class="op">(</span>user<span class="op">.</span><span class="fu">getName</span><span class="op">(),</span> found<span class="op">.</span><span class="fu">getName</span><span class="op">());</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <h2 id="좋은-테스트의-성질">좋은 테스트의 성질</h2>
+      <ul>
+      <li>자동으로 실행되고 결과를 스스로 판정한다.</li>
+      <li>다른 테스트와 실행 순서에 의존하지 않는다.</li>
+      <li>같은 조건에서는 같은 결과를 낸다.</li>
+      <li>작은 단위로 실패 원인을 좁힌다.</li>
+      <li>빠르게 반복할 수 있다.</li>
+      </ul>
+      <p><code>deleteAll()</code>처럼 시작 상태를 통제하면 테스트가 반복
+      가능해진다. 단, 운영 코드에 테스트 편의 메서드를 무조건 추가하라는
+      뜻은 아니다. 테스트 DB, 트랜잭션 롤백, 픽스처 생성기 등 상황에
+      맞는 격리 방식을 고른다.</p>
+      <h2 id="tdd의-짧은-순환">TDD의 짧은 순환</h2>
+      <ol type="1">
+      <li>실패하는 테스트를 먼저 쓴다(Red).</li>
+      <li>통과시키는 최소 코드를 쓴다(Green).</li>
+      <li>동작을 유지하며 구조를 개선한다(Refactor).</li>
+      </ol>
+      <p>테스트를 먼저 쓰면 요구사항을 호출자의 관점에서 구체화하고,
+      필요 이상으로 구현하는 일을 줄인다.</p>
+      <h2 id="스프링-테스트-컨텍스트">스프링 테스트 컨텍스트</h2>
+      <p>원문의 JUnit 4 표현은 다음과 같다.</p>
+      <div class="sourceCode" id="cb18"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="at">@RunWith</span><span class="op">(</span>SpringJUnit4ClassRunner<span class="op">.</span><span class="fu">class</span><span class="op">)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="at">@ContextConfiguration</span><span class="op">(</span>classes <span class="op">=</span> AppConfig<span class="op">.</span><span class="fu">class</span><span class="op">)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserDaoTest <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
+      <p>현대 JUnit 5에서는 보통 SpringExtension을 사용하며, 관련
+      애노테이션에 포함되기도 한다. 핵심은 테스트가 스프링 컨테이너를
+      생성하고 빈을 주입받을 수 있다는 점이다.</p>
+      <p><code>@DirtiesContext</code>는 테스트가 컨테이너의 상태를
+      변경해 재사용하면 안 된다고 표시한다. 편리하지만 컨텍스트를 다시
+      만들게 하므로 남용하면 테스트가 느려진다.</p>
+      <p>GitHub 보충 자료의 테스트 분류:</p>
+      <ul>
+      <li><code>@SpringBootTest</code>: 전체 애플리케이션 컨텍스트에
+      가까운 통합 테스트</li>
+      <li><code>@WebMvcTest</code>: MVC 계층 일부만 로딩하는 슬라이스
+      테스트</li>
+      <li><code>@DataJpaTest</code>: JPA 관련 구성만 로딩하는 슬라이스
+      테스트</li>
+      <li>학습 테스트: 낯선 라이브러리의 동작을 직접 검증하며 학습</li>
+      <li>버그 테스트: 발견된 버그를 재현하는 실패 테스트를 먼저
+      고정</li>
+      </ul>
+      <h2 id="단위-테스트와-통합-테스트">단위 테스트와 통합 테스트</h2>
+      <p>둘 중 하나만 옳은 것이 아니다.</p>
+      <ul>
+      <li>단위 테스트는 빠르고 실패 위치가 선명하다.</li>
+      <li>통합 테스트는 실제 설정과 구성 요소의 연결을 검증한다.</li>
+      </ul>
+      <p>비즈니스 규칙은 고립된 단위 테스트로 촘촘히 확인하고, DB 매핑과
+      빈 연결은 필요한 범위에서 통합 테스트로 확인한다.</p>
+      <h2 id="2장-인출">2장 인출</h2>
+      <ol type="1">
+      <li>테스트가 이전 실행의 DB 데이터에 의존하면 어떤 문제가
+      생기는가?</li>
+      <li>TDD의 Red–Green–Refactor를 설명하라.</li>
+      <li>단위 테스트와 통합 테스트가 각각 잡기 좋은 오류는
+      무엇인가?</li>
+      <li><code>@DirtiesContext</code>가 느린 이유는 무엇인가?</li>
+      </ol>
+      <hr />
+      <h1 id="3장-템플릿">3장. 템플릿</h1>
+      <h2 id="이-장의-질문-2">이 장의 질문</h2>
+      <blockquote>
+      <p>JDBC 메서드마다 반복되는 자원 획득·예외 처리·자원 반환을 어떻게
+      한곳에서 보장하는가?</p>
+      </blockquote>
+      <p>JDBC 코드는 예외가 나도 <code>Connection</code>,
+      <code>Statement</code>, <code>ResultSet</code>을 닫아야 한다.
+      <code>finally</code>를 반복하면 길고 실수하기 쉽다.</p>
+      <div class="sourceCode" id="cb19"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Connection</span> c <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">PreparedStatement</span> ps <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    c <span class="op">=</span> dataSource<span class="op">.</span><span class="fu">getConnection</span><span class="op">();</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    ps <span class="op">=</span> c<span class="op">.</span><span class="fu">prepareStatement</span><span class="op">(</span><span class="st">&quot;delete from users&quot;</span><span class="op">);</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    ps<span class="op">.</span><span class="fu">executeUpdate</span><span class="op">();</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>ps <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> ps<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>c <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> c<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>여기서 변하지 않는 흐름과 변하는 부분을 나눈다.</p>
+      <ul>
+      <li>변하지 않음: 연결 획득, 문장 실행, 예외 처리, 자원 정리</li>
+      <li>변함: 실제 SQL과 파라미터 설정</li>
+      </ul>
+      <div class="sourceCode" id="cb20"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">interface</span> StatementStrategy <span class="op">{</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">PreparedStatement</span> <span class="fu">make</span><span class="op">(</span><span class="bu">Connection</span> c<span class="op">)</span> <span class="kw">throws</span> <span class="bu">SQLException</span><span class="op">;</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">jdbcContext</span><span class="op">(</span>StatementStrategy strategy<span class="op">)</span> <span class="kw">throws</span> <span class="bu">SQLException</span> <span class="op">{</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Connection</span> c <span class="op">=</span> dataSource<span class="op">.</span><span class="fu">getConnection</span><span class="op">();</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">PreparedStatement</span> ps <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>        ps <span class="op">=</span> strategy<span class="op">.</span><span class="fu">make</span><span class="op">(</span>c<span class="op">);</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>        ps<span class="op">.</span><span class="fu">executeUpdate</span><span class="op">();</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>ps <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> ps<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>        c<span class="op">.</span><span class="fu">close</span><span class="op">();</span></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p><code>jdbcContext</code>는 고정된 작업 흐름인 템플릿이고,
+      <code>StatementStrategy</code> 구현은 호출 때 전달되는
+      콜백이다.</p>
+      <h2 id="왜-단순-메서드-추출만으로-부족한가">왜 단순 메서드
+      추출만으로 부족한가</h2>
+      <p>메서드를 뽑아도 변하는 SQL이 공통 흐름 안에 있으면 재사용
+      범위가 좁다. 상속 기반 템플릿 메서드 패턴은 클래스마다 하위
+      클래스를 만들어야 하고 상속 결합이 생긴다. 전략과 콜백을 인자로
+      전달하면 구성으로 동작을 바꿀 수 있다.</p>
+      <h2 id="로컬-클래스와-익명-내부-클래스">로컬 클래스와 익명 내부
+      클래스</h2>
+      <p>콜백이 한 메서드에서만 쓰인다면 가까운 위치에 두어 응집도를
+      높일 수 있다. 책은 Java 8 이전 스타일이라 익명 내부 클래스를
+      사용한다. 오늘날에는 람다로 표현할 수 있다.</p>
+      <div class="sourceCode" id="cb21"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">execute</span><span class="op">(</span>connection <span class="op">-&gt;</span> connection<span class="op">.</span><span class="fu">prepareStatement</span><span class="op">(</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;delete from users where id = ?&quot;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="op">));</span></span></code></pre></div>
+      <h2 id="jdbctemplate로-연결">JdbcTemplate로 연결</h2>
+      <p>스프링의 <code>JdbcTemplate</code>은 이 패턴을 이미 구현한다.
+      GitHub 보충 자료에 따르면 다음을 대신한다.</p>
+      <ul>
+      <li>연결 획득과 반환</li>
+      <li>Statement 생성과 실행</li>
+      <li>반복 순회</li>
+      <li>예외 변환</li>
+      <li>자원 정리</li>
+      </ul>
+      <p>개발자는 SQL, 파라미터, 행을 객체로 바꾸는 로직처럼 달라지는
+      부분에 집중한다.</p>
+      <h2 id="직접-패턴을-적용하는-기준">직접 패턴을 적용하는 기준</h2>
+      <ol type="1">
+      <li>여러 코드에 비슷한 작업 흐름이 반복되는가?</li>
+      <li>흐름 중 일부 단계만 매번 달라지는가?</li>
+      <li>반복 부분에 예외 처리나 정리처럼 반드시 지켜야 할 규칙이
+      있는가?</li>
+      </ol>
+      <p>그렇다면 템플릿/콜백 후보이다.</p>
+      <h2 id="3장-인출">3장 인출</h2>
+      <ol type="1">
+      <li>JDBC 코드에서 변하는 것과 변하지 않는 것을 나눠보라.</li>
+      <li>전략 패턴과 템플릿/콜백의 관계를 설명하라.</li>
+      <li>자원 정리를 템플릿에 넣으면 어떤 종류의 버그를 줄이는가?</li>
+      <li><code>JdbcTemplate</code>을 사용해도 개발자가 결정해야 하는
+      것은 무엇인가?</li>
+      </ol>
+      <hr />
+      <h1 id="4장-예외">4장. 예외</h1>
+      <h2 id="이-장의-질문-3">이 장의 질문</h2>
+      <blockquote>
+      <p>실패 정보를 잃지 않으면서, 호출자가 실제로 대응할 수 있는
+      의미로 어떻게 전달하는가?</p>
+      </blockquote>
+      <h2 id="가장-나쁜-두-방식">가장 나쁜 두 방식</h2>
+      <div class="sourceCode" id="cb22"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">work</span><span class="op">();</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// 아무것도 하지 않음: 예외 블랙홀</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>실패했는데 성공한 것처럼 다음 코드가 진행된다. 로그만 남기고
+      정상 반환하는 것도 호출자가 실패를 알아야 한다면 충분하지
+      않다.</p>
+      <div class="sourceCode" id="cb23"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> <span class="fu">work</span><span class="op">()</span> <span class="kw">throws</span> <span class="bu">Exception</span> <span class="op">{</span> <span class="kw">...</span> <span class="op">}</span></span></code></pre></div>
+      <p>모든 예외를 뭉뚱그려 던지면 호출자는 무엇이 실패했고 복구
+      가능한지 알기 어렵다.</p>
+      <h2 id="세-가지-올바른-전략">세 가지 올바른 전략</h2>
+      <h3 id="1-복구">1. 복구</h3>
+      <p>현재 계층이 대안을 알고 있을 때 정상 흐름으로 회복한다.
+      네트워크 일시 실패 재시도, 다른 서버 선택 등이 예다. 무한 재시도나
+      모든 오류의 재시도는 복구가 아니다.</p>
+      <h3 id="2-회피">2. 회피</h3>
+      <p>현재 코드가 처리 책임을 가지지 않고 적절한 호출자에게 넘긴다.
+      단순히 귀찮아서 던지는 것이 아니라 호출자가 의미 있게 처리할 수
+      있어야 한다.</p>
+      <h3 id="3-전환">3. 전환</h3>
+      <p>낮은 수준의 예외를 현재 계층의 의미가 담긴 예외로 바꾼다.</p>
+      <div class="sourceCode" id="cb24"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">jdbcInsert</span><span class="op">(</span>user<span class="op">);</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">SQLException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">throw</span> <span class="kw">new</span> <span class="fu">UserRegistrationException</span><span class="op">(</span>user<span class="op">.</span><span class="fu">getId</span><span class="op">(),</span> e<span class="op">);</span></span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>원인 예외 <code>e</code>를 반드시 보존해야 디버깅 정보가
+      사라지지 않는다.</p>
+      <h2 id="왜-데이터-접근-예외를-추상화하는가">왜 데이터 접근 예외를
+      추상화하는가</h2>
+      <p>JDBC, JPA, 특정 DB는 같은 “중복 키” 상황을 서로 다른 예외로
+      표현할 수 있다. 비즈니스 코드가 DB 벤더별 오류 코드를 알면 기술
+      교체가 퍼진다. 스프링은 이를 <code>DataAccessException</code> 계층
+      같은 일관된 런타임 예외로 변환한다.</p>
+      <p>이는 예외를 무시한다는 뜻이 아니다. 호출자가 복구할 수 없는
+      체크 예외를 매번 기계적으로 전달하게 하지 않고, 필요한 곳에서는
+      구체 타입을 잡아 대응하게 한다.</p>
+      <h2 id="판단-순서">판단 순서</h2>
+      <ol type="1">
+      <li>여기서 복구할 수 있는가?</li>
+      <li>아니라면 누가 이 실패를 알아야 하는가?</li>
+      <li>기술 예외를 그대로 전달하면 상위 계층이 기술에
+      종속되는가?</li>
+      <li>전환한다면 원인 예외를 보존했는가?</li>
+      </ol>
+      <h2 id="4장-인출">4장 인출</h2>
+      <ol type="1">
+      <li>예외를 잡고 로그만 남긴 뒤 정상 반환하면 왜 위험한가?</li>
+      <li>복구·회피·전환의 예를 하나씩 들어라.</li>
+      <li>예외 전환 시 원인 예외를 포함해야 하는 이유는 무엇인가?</li>
+      <li>스프링의 데이터 접근 예외 추상화가 기술 교체에 어떻게 도움을
+      주는가?</li>
+      </ol>
+      <hr />
+      <h1 id="5장-서비스-추상화">5장. 서비스 추상화</h1>
+      <h2 id="이-장의-질문-4">이 장의 질문</h2>
+      <blockquote>
+      <p>여러 DAO 작업을 하나의 트랜잭션으로 묶으면서 서비스가 JDBC
+      기술에 종속되지 않게 하려면?</p>
+      </blockquote>
+      <h2 id="비즈니스-로직부터-분명하게">비즈니스 로직부터
+      분명하게</h2>
+      <p>사용자 등급을 올리는 예제는 처음에 조건문, 숫자, 업데이트
+      코드가 한 메서드에 섞인다. 다음처럼 책임을 나눌 수 있다.</p>
+      <ul>
+      <li><code>canUpgradeLevel(user)</code>: 승급 가능한지 판단</li>
+      <li><code>upgradeLevel(user)</code>: 다음 등급으로 변경</li>
+      <li><code>userDao.update(user)</code>: 저장</li>
+      </ul>
+      <p>숫자나 조건을 의미 있는 상수·enum·메서드로 표현하면 코드가 업무
+      용어를 드러낸다. 테스트도 “어떤 사용자가 승급되는가”를 직접 검증할
+      수 있다.</p>
+      <h2 id="트랜잭션-경계가-서비스에-필요한-이유">트랜잭션 경계가
+      서비스에 필요한 이유</h2>
+      <p>여러 사용자를 승급하다 중간에 실패했을 때 앞선 사용자만 DB에
+      반영되면 업무 규칙이 깨질 수 있다. 전체 승급 작업을 하나의
+      트랜잭션으로 묶어야 한다.</p>
+      <p>문제는 DAO가 각자 연결을 만들고 닫으면 같은 트랜잭션을 공유할
+      수 없다는 점이다. 스프링의 트랜잭션 동기화는 현재 실행 흐름에
+      연결을 보관해 여러 DAO가 같은 자원을 사용하도록 돕는다.</p>
+      <h2 id="서비스-추상화">서비스 추상화</h2>
+      <p>JDBC는 <code>Connection</code>, JTA는 별도 API를 사용한다.
+      서비스가 구체 API를 직접 사용하면 실행 환경을 바꿀 때 비즈니스
+      코드가 바뀐다. 스프링은 일관된 트랜잭션 경계 인터페이스를 제공하고
+      구현체를 DI한다.</p>
+      <div class="sourceCode" id="cb25"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UserService <span class="op">{</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> TransactionManager transactionManager<span class="op">;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> UserDao userDao<span class="op">;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">void</span> <span class="fu">upgradeLevels</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        TransactionStatus status <span class="op">=</span> transactionManager<span class="op">.</span><span class="fu">begin</span><span class="op">();</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            <span class="co">// 순수한 승급 작업</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>            transactionManager<span class="op">.</span><span class="fu">commit</span><span class="op">(</span>status<span class="op">);</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">RuntimeException</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>            transactionManager<span class="op">.</span><span class="fu">rollback</span><span class="op">(</span>status<span class="op">);</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">throw</span> e<span class="op">;</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>위 코드는 원리를 보여주기 위한 모양이다. 다음 장에서는 이
+      트랜잭션 코드마저 서비스에서 분리한다.</p>
+      <h2 id="psa와-계층">PSA와 계층</h2>
+      <p>PSA(Portable Service Abstraction)는 다양한 기술 구현을 일관된
+      서비스 인터페이스로 사용하는 방식이다.</p>
+      <ul>
+      <li>수평 분리: 같은 계층에서 역할이 다른 객체를 분리
+      (<code>UserService</code>와 <code>UserDao</code>)</li>
+      <li>수직 분리: 애플리케이션 로직과 기술 서비스 계층을 분리
+      (비즈니스 로직과 트랜잭션 구현)</li>
+      </ul>
+      <p>DI는 이 계층 사이를 인터페이스로 연결한다. 결과적으로 기술
+      구현을 바꿔도 핵심 로직의 수정이 줄어든다.</p>
+      <h2 id="5장-인출">5장 인출</h2>
+      <ol type="1">
+      <li>트랜잭션 경계를 DAO 하나가 아니라 서비스 작업에 두는 이유는
+      무엇인가?</li>
+      <li>여러 DAO가 같은 트랜잭션을 공유하려면 무엇을 공유해야
+      하는가?</li>
+      <li>서비스 추상화와 단순 유틸리티 함수의 차이는 무엇인가?</li>
+      <li>PSA가 DI를 필요로 하는 이유를 설명하라.</li>
+      </ol>
+      <hr />
+      <h1 id="6장-aop">6장. AOP</h1>
+      <h2 id="이-장의-질문-5">이 장의 질문</h2>
+      <blockquote>
+      <p>서비스마다 반복되는 트랜잭션 코드를 서비스 코드에서 완전히 치울
+      수 있는가?</p>
+      </blockquote>
+      <h2 id="핵심-기능과-부가기능">핵심 기능과 부가기능</h2>
+      <ul>
+      <li>핵심 기능: 사용자 승급, 주문 생성처럼 업무 목적을 수행하는
+      로직</li>
+      <li>부가기능: 트랜잭션, 보안, 로깅, 측정처럼 여러 핵심 기능에 반복
+      적용되는 로직</li>
+      </ul>
+      <p>트랜잭션 코드를 별도 클래스에 옮기고, 이 클래스가 실제
+      <code>UserService</code>와 같은 인터페이스를 구현하게 할 수
+      있다.</p>
+      <pre class="text"><code>호출자 → 트랜잭션 프록시 → 실제 UserService
+                │
+                ├─ 트랜잭션 시작
+                ├─ 실제 메서드 호출
+                └─ commit 또는 rollback</code></pre>
+      <p>호출자는 같은 인터페이스만 보므로 중간 프록시의 존재를 알
+      필요가 없다. DI 설정이 호출자가 프록시를 바라보도록 연결한다.</p>
+      <h2 id="프록시-데코레이터-프록시-패턴">프록시, 데코레이터, 프록시
+      패턴</h2>
+      <p><code>프록시</code>는 실제 대상 대신 요청을 받는 대리 객체라는
+      구조적 이름이다.</p>
+      <ul>
+      <li>데코레이터 패턴: 같은 인터페이스로 기능을 동적으로 덧붙이는
+      목적</li>
+      <li>프록시 패턴: 접근 제어, 지연 로딩 등 대상에 대한 접근 방법을
+      제어하는 목적</li>
+      </ul>
+      <p>모양이 비슷해도 의도가 다르다. 트랜잭션 부가기능은 데코레이터
+      성격이 강하다.</p>
+      <h2 id="수동-프록시의-문제">수동 프록시의 문제</h2>
+      <p>인터페이스 메서드가 많으면 위임 메서드를 모두 작성해야 한다.
+      여러 서비스에 적용하면 같은 트랜잭션 코드가 프록시마다
+      중복된다.</p>
+      <p>Java의 리플렉션은 실행 중 타입과 메서드 정보를 다룬다. JDK
+      다이내믹 프록시는 인터페이스를 기준으로 위임 객체를 자동 생성하고,
+      공통 <code>InvocationHandler</code>가 호출을 처리하게 한다.</p>
+      <div class="sourceCode" id="cb27"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="bu">Object</span> <span class="fu">invoke</span><span class="op">(</span><span class="bu">Object</span> proxy<span class="op">,</span> <span class="bu">Method</span> method<span class="op">,</span> <span class="bu">Object</span><span class="op">[]</span> args<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// before</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Object</span> result <span class="op">=</span> method<span class="op">.</span><span class="fu">invoke</span><span class="op">(</span>target<span class="op">,</span> args<span class="op">);</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// after</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result<span class="op">;</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <h2 id="factorybean에서-자동-프록시-생성까지">FactoryBean에서 자동
+      프록시 생성까지</h2>
+      <p>프록시는 일반 객체처럼 단순 생성하기 어려울 수 있어
+      FactoryBean으로 컨테이너에 등록한다. 하지만 대상마다 팩토리 빈을
+      설정하면 설정이 커진다.</p>
+      <p>스프링은 빈 후처리기를 이용해 빈이 만들어진 뒤 조건에 맞는 빈을
+      프록시로 바꿔 등록할 수 있다.</p>
+      <ul>
+      <li>Advice: 무엇을 할 것인가? (트랜잭션 부가기능)</li>
+      <li>Pointcut: 어디에 적용할 것인가? (대상 클래스·메서드 조건)</li>
+      <li>Advisor: Pointcut + Advice</li>
+      <li>Join point: 부가기능을 끼워 넣을 수 있는 실행 지점</li>
+      <li>Target: 실제 핵심 기능 객체</li>
+      <li>Proxy: 호출을 가로채 Advice를 적용하고 Target에 위임하는
+      객체</li>
+      <li>Aspect: 횡단 관심사의 규칙과 구현을 모듈화한 것</li>
+      </ul>
+      <h2 id="aop란-무엇인가">AOP란 무엇인가</h2>
+      <p>여러 모듈을 가로질러 흩어지는 관심사를 한 단위로 모듈화하고,
+      <strong>어디에 어떤 기능을 적용할지 선언</strong>하는 프로그래밍
+      접근이다. 객체지향을 대체하지 않는다. 객체별 책임으로 깔끔하게
+      자르기 어려운 횡단 관심사를 보완한다.</p>
+      <h2 id="고립된-단위-테스트와-mockito">고립된 단위 테스트와
+      Mockito</h2>
+      <p>DI로 실제 DAO를 목 객체로 바꾸면 DB 없이 서비스 규칙만 테스트할
+      수 있다.</p>
+      <div class="sourceCode" id="cb28"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>UserDao dao <span class="op">=</span> <span class="fu">mock</span><span class="op">(</span>UserDao<span class="op">.</span><span class="fu">class</span><span class="op">);</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>UserService service <span class="op">=</span> <span class="kw">new</span> <span class="fu">UserService</span><span class="op">(</span>dao<span class="op">);</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>service<span class="op">.</span><span class="fu">upgradeLevels</span><span class="op">();</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="fu">verify</span><span class="op">(</span>dao<span class="op">).</span><span class="fu">update</span><span class="op">(</span>expectedUser<span class="op">);</span></span></code></pre></div>
+      <p>목 테스트는 호출 횟수와 인자 같은 협력을 검증한다. 구현 내부
+      호출 순서에 지나치게 결합하면 리팩터링 때 테스트가 불필요하게
+      깨지므로, 중요한 상호작용만 확인한다.</p>
+      <h2 id="프록시-aop의-중요한-제한">프록시 AOP의 중요한 제한</h2>
+      <p>호출자가 프록시를 거쳐야 Advice가 적용된다. 같은 객체의 한
+      메서드가 자기 자신의 다른 메서드를 직접 호출하는 self-invocation은
+      일반적인 프록시 경계를 지나지 않으므로 Advice가 적용되지 않을 수
+      있다.</p>
+      <h2 id="6장-인출">6장 인출</h2>
+      <ol type="1">
+      <li>프록시와 실제 대상은 어떤 인터페이스 관계를 가져야
+      하는가?</li>
+      <li>Advice와 Pointcut의 차이를 설명하라.</li>
+      <li>빈 후처리기가 자동 프록시 생성에 적합한 이유는 무엇인가?</li>
+      <li>self-invocation에서 프록시 AOP가 동작하지 않을 수 있는 이유는
+      무엇인가?</li>
+      </ol>
+      <hr />
+      <h1 id="8장-스프링이란-무엇인가">8장. 스프링이란 무엇인가</h1>
+      <h2 id="정의를-분해하기">정의를 분해하기</h2>
+      <blockquote>
+      <p>자바 엔터프라이즈 개발을 편하게 해주는 오픈소스 경량급
+      애플리케이션 프레임워크</p>
+      </blockquote>
+      <ul>
+      <li>애플리케이션 프레임워크: 특정 한 계층만이 아니라 애플리케이션
+      전반의 개발을 지원한다.</li>
+      <li>경량급: 코드 크기가 작다는 뜻이 아니라, 과거 EJB처럼 무거운
+      서버·규약·개발 절차를 강제하지 않고도 엔터프라이즈 기능을
+      제공한다는 역사적 의미다.</li>
+      <li>엔터프라이즈 개발: 동시 사용자, 트랜잭션, 보안, 안정성, 자원
+      관리 등 기술 요구와 복잡한 업무 요구를 함께 처리한다.</li>
+      <li>오픈소스: 소스가 공개되고 커뮤니티 방식으로 발전하지만,
+      지속성과 품질 관리가 중요하다.</li>
+      </ul>
+      <h2 id="스프링이-상대하는-두-복잡성">스프링이 상대하는 두
+      복잡성</h2>
+      <ol type="1">
+      <li>기술 복잡성: DB, 트랜잭션, 원격 호출, 보안처럼 환경마다 다른
+      기술</li>
+      <li>비즈니스 복잡성: 회사의 규칙과 정책 자체가 복잡하고 계속
+      변함</li>
+      </ol>
+      <p>기술 코드와 비즈니스 코드가 한곳에 섞이면 두 변화가 서로
+      증폭된다. 스프링은 DI, AOP, PSA를 이용해 기술 복잡성을 분리하고
+      비즈니스 객체가 업무 책임에 집중하게 한다.</p>
+      <h2 id="pojo">POJO</h2>
+      <p>POJO(Plain Old Java Object)는 단순히 <code>new</code>로 만들 수
+      있는 객체라는 말보다 넓다.</p>
+      <ul>
+      <li>특정 프레임워크의 클래스를 강제로 상속하거나 인터페이스를
+      구현하지 않는다.</li>
+      <li>특정 서버 환경 없이는 동작하지 않는 코드로 핵심 로직을
+      오염시키지 않는다.</li>
+      <li>객체지향 원칙을 활용할 수 있고 재사용·테스트가 쉽다.</li>
+      </ul>
+      <p>스프링의 목적은 모든 코드에 스프링 API를 새기는 것이 아니다.
+      오히려 핵심 객체가 스프링을 모른 채 평범한 Java 객체로 남게 하고,
+      필요한 엔터프라이즈 서비스를 외부에서 제공하는 것이다.</p>
+      <h2 id="diaoppsa의-합성">DI·AOP·PSA의 합성</h2>
+      <pre class="text"><code>DI  : 객체와 객체의 관계를 외부에서 유연하게 연결
+AOP : 여러 객체를 가로지르는 부가기능을 외부에서 적용
+PSA : 구체 기술의 차이를 일관된 서비스 인터페이스 뒤에 격리
+결과: POJO가 비즈니스 책임에 집중</code></pre>
+      <h2 id="8장-인출">8장 인출</h2>
+      <ol type="1">
+      <li>스프링의 “경량급”을 파일 크기로 설명하면 왜 틀리는가?</li>
+      <li>기술 복잡성과 비즈니스 복잡성이 섞일 때 무슨 일이
+      생기는가?</li>
+      <li>POJO가 단순한 Java 객체 이상의 설계 개념인 이유는
+      무엇인가?</li>
+      <li>DI·AOP·PSA가 함께 POJO를 어떻게 지키는가?</li>
+      </ol>
+      <hr />
+      <h1 id="1권-최종-연결-문제">1권 최종 연결 문제</h1>
+      <p>다음 상황을 입으로 설명해보자.</p>
+      <blockquote>
+      <p><code>OrderService.placeOrder()</code>가 재고 감소, 결제, 주문
+      저장을 수행한다. 운영에서는 실제 DB와 결제사를 사용하고,
+      테스트에서는 가짜 구현을 쓰고 싶다. 전체 작업은 하나의
+      트랜잭션이어야 하며 실행 시간을 기록해야 한다.</p>
+      </blockquote>
+      <p>모범 구조:</p>
+      <ul>
+      <li><code>OrderService</code>는 재고·결제·주문 저장의
+      <strong>인터페이스</strong>에 의존한다.</li>
+      <li>실제 구현과 가짜 구현은 <strong>DI</strong>로 교체한다.</li>
+      <li>트랜잭션 기술은 <strong>PSA</strong>를 통해 일관된 경계로
+      다룬다.</li>
+      <li>트랜잭션과 실행 시간 기록은 <strong>AOP 프록시</strong>가
+      적용한다.</li>
+      <li>서비스 규칙은 목/가짜 객체를 사용한 <strong>단위
+      테스트</strong>로, 실제 DB 연결은 <strong>통합 테스트</strong>로
+      확인한다.</li>
+      </ul>
+      <h1 id="2권-보충-aopltw테스트-컨텍스트">2권 보충: AOP·LTW·테스트
+      컨텍스트</h1>
+      <p>링크의 2권 부분은 범위가 짧다. 1권 6장에서 만든 프록시 AOP를
+      실제 스프링 설정 방식으로 확장하고, 테스트 컨텍스트가 컨테이너를
+      효율적으로 재사용하는 원리를 다룬다.</p>
+      <h1 id="5장-aop와-ltw">5장. AOP와 LTW</h1>
+      <h2 id="세-가지-aop-적용-시점">세 가지 AOP 적용 시점</h2>
+      <table>
+      <thead>
+      <tr class="header">
+      <th>방식</th>
+      <th>적용 시점</th>
+      <th>대표 기술</th>
+      <th>감각</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>컴파일 타임 위빙</td>
+      <td>소스/Aspect를 컴파일할 때</td>
+      <td>AspectJ compiler</td>
+      <td>결과 클래스에 기능이 엮여 나옴</td>
+      </tr>
+      <tr class="even">
+      <td>로드 타임 위빙(LTW)</td>
+      <td>JVM이 클래스를 로드할 때</td>
+      <td>AspectJ weaver + agent</td>
+      <td>로딩 순간 바이트코드 변환</td>
+      </tr>
+      <tr class="odd">
+      <td>런타임 프록시</td>
+      <td>컨테이너가 빈을 구성할 때</td>
+      <td>Spring AOP</td>
+      <td>대상 앞에 프록시 객체 배치</td>
+      </tr>
+      </tbody>
+      </table>
+      <p>스프링 AOP는 주로 프록시 기반이라 Spring Bean의 메서드 실행을
+      가로챈다. AspectJ는 클래스 자체를 위빙할 수 있어 더 넓은 지점에
+      적용 가능하지만 구성과 운영 복잡도도 커질 수 있다.</p>
+      <h2 id="aspect를-구성하는-요소">Aspect를 구성하는 요소</h2>
+      <div class="sourceCode" id="cb30"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Aspect</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TimingAspect <span class="op">{</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Around</span><span class="op">(</span><span class="st">&quot;execution(* com.example.service..*(..))&quot;</span><span class="op">)</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Object</span> <span class="fu">measure</span><span class="op">(</span>ProceedingJoinPoint joinPoint<span class="op">)</span> <span class="kw">throws</span> <span class="bu">Throwable</span> <span class="op">{</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">long</span> start <span class="op">=</span> <span class="bu">System</span><span class="op">.</span><span class="fu">nanoTime</span><span class="op">();</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> joinPoint<span class="op">.</span><span class="fu">proceed</span><span class="op">();</span></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">finally</span> <span class="op">{</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>            <span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="bu">System</span><span class="op">.</span><span class="fu">nanoTime</span><span class="op">()</span> <span class="op">-</span> start<span class="op">);</span></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <ul>
+      <li><code>@Aspect</code>: 이 클래스가 횡단 관심사 모듈임을
+      표시</li>
+      <li><code>@Around</code>: 대상 호출 전후 모두에 개입하는
+      Advice</li>
+      <li>Pointcut 표현식: 적용할 메서드의 조건</li>
+      <li><code>proceed()</code>: 실제 대상 또는 다음 Advice 호출</li>
+      </ul>
+      <p><code>proceed()</code>를 호출하지 않으면 실제 핵심 로직이
+      실행되지 않는다. 두 번 호출하면 두 번 실행될 수 있다. Around
+      Advice는 강력한 만큼 흐름을 분명히 이해해야 한다.</p>
+      <h2 id="자동-프록시-생성">자동 프록시 생성</h2>
+      <p>스프링은 빈 후처리기가 생성된 빈을 검사한다.</p>
+      <ol type="1">
+      <li>빈 생성</li>
+      <li>Advisor의 Pointcut과 일치하는지 검사</li>
+      <li>일치하면 원본 대신 프록시 생성</li>
+      <li>프록시를 컨테이너에 등록</li>
+      <li>다른 빈은 DI를 통해 프록시를 받음</li>
+      </ol>
+      <p><code>@EnableAspectJAutoProxy</code>는 <code>@Aspect</code>
+      스타일의 자동 프록시 지원을 켠다. 이름에 AspectJ가 들어가지만
+      보통의 스프링 설정에서는 AspectJ 문법을 활용하는 <strong>프록시
+      기반 Spring AOP</strong>라는 점을 구분한다.</p>
+      <h2 id="jdk-프록시와-클래스-프록시">JDK 프록시와 클래스
+      프록시</h2>
+      <ul>
+      <li>JDK 동적 프록시: 인터페이스를 기반으로 프록시 생성</li>
+      <li>CGLIB 계열 클래스 프록시: 대상 클래스를 상속한 프록시
+      생성</li>
+      </ul>
+      <p>클래스 프록시는 <code>final</code> 클래스/메서드와 private
+      메서드 등에 제약이 있다. 어느 방식이든 외부 호출이 프록시를
+      통과해야 한다는 경계가 중요하다.</p>
+      <h2 id="ltw는-언제-생각하는가">LTW는 언제 생각하는가</h2>
+      <p>프록시가 가로챌 수 없는 생성자, 필드 접근, Spring Bean이 아닌
+      객체 등 더 넓은 join point가 필요할 때 AspectJ 위빙을 고려할 수
+      있다. <code>@EnableLoadTimeWeaving</code>은 로드 타임 위빙 구성을
+      지원한다. 단순한 서비스 트랜잭션·로깅이라면 먼저 프록시 AOP로
+      충분한지 판단한다.</p>
+      <h2 id="확인-문제">확인 문제</h2>
+      <ol type="1">
+      <li>Spring AOP와 AspectJ 위빙의 적용 지점은 어떻게 다른가?</li>
+      <li><code>Advice</code>, <code>Pointcut</code>,
+      <code>Advisor</code>, <code>Aspect</code>를 각각 설명하라.</li>
+      <li><code>@EnableAspectJAutoProxy</code>가 있다고 항상 바이트코드
+      위빙을 하는 것은 아닌 이유는?</li>
+      <li>Around Advice에서 <code>proceed()</code>는 어떤 의미인가?</li>
+      </ol>
+      <h1 id="6장-테스트-컨텍스트-프레임워크">6장. 테스트 컨텍스트
+      프레임워크</h1>
+      <p>스프링 통합 테스트마다 <code>ApplicationContext</code>를 새로
+      만들면 설정 해석, 빈 생성, DB 연결 준비 때문에 느리다. 테스트
+      컨텍스트 프레임워크는 테스트 클래스의 설정 정보를 읽고 컨텍스트를
+      생성·캐시·공유한다.</p>
+      <h2 id="큰-흐름">큰 흐름</h2>
+      <pre class="text"><code>JUnit 테스트 실행
+  → Spring 확장 기능이 테스트 생명주기에 참여
+  → 설정 위치/클래스 확인
+  → 같은 키의 ApplicationContext가 캐시에 있는지 확인
+  → 있으면 재사용, 없으면 생성
+  → 테스트 인스턴스에 빈 주입
+  → 트랜잭션·SQL·컨텍스트 정리 같은 리스너 기능 적용</code></pre>
+      <p>컨텍스트 캐시 키가 달라지면 새 컨텍스트가 만들어진다.
+      테스트마다 사소하게 다른 설정을 만들면 캐시 적중률이 떨어진다.</p>
+      <h2 id="dirtiescontext"><code>@DirtiesContext</code></h2>
+      <p>테스트가 싱글톤 빈 상태나 컨테이너 구성을 오염시켰다면 캐시에서
+      해당 컨텍스트를 제거하도록 표시한다. 문제를 숨기는 만능 초기화
+      버튼이 아니다. 먼저 빈을 무상태로 만들거나 테스트 데이터를
+      롤백하는 편이 가능한지 살핀다.</p>
+      <h2 id="테스트-범위-선택">테스트 범위 선택</h2>
+      <ol type="1">
+      <li>순수 Java 단위 테스트로 가능한가? 가능하면 컨테이너 없이
+      실행한다.</li>
+      <li>빈 연결이나 스프링 기능을 확인해야 하는가? 필요한 설정만
+      로딩한다.</li>
+      <li>전체 애플리케이션 흐름이 필요한가? 전체 통합 테스트를
+      사용한다.</li>
+      </ol>
+      <p>GitHub 보충 자료의 슬라이스 테스트는 이 원칙의 현대적 사례다.
+      웹 계층, JPA 계층 등 필요한 조각만 컨텍스트에 올려 속도와 현실성
+      사이를 조정한다.</p>
+      <h2 id="확인-문제-1">확인 문제</h2>
+      <ol type="1">
+      <li>테스트 컨텍스트 캐시는 왜 필요한가?</li>
+      <li>순수 단위 테스트에서 스프링 컨텍스트를 띄우지 않는
+      이유는?</li>
+      <li><code>@DirtiesContext</code> 남용이 성능에 미치는 영향은?</li>
+      <li>슬라이스 테스트가 전체 통합 테스트와 다른 점은?</li>
+      </ol>
+      <h1 id="두-자료에서-추가로-연결되는-현대적-주제">두 자료에서
+      추가로 연결되는 현대적 주제</h1>
+      <p>추가 GitHub 저장소는 원래 GitBook 범위보다 넓다. 다음은 핵심
+      원리를 익힌 뒤 확장할 순서다.</p>
+      <ol type="1">
+      <li>ApplicationContext 부가기능: <code>Environment</code>,
+      <code>MessageSource</code>, <code>ResourceLoader</code>,
+      애플리케이션 이벤트</li>
+      <li>데이터 접근: <code>DataSource</code>,
+      <code>JdbcTemplate</code>, 커넥션 풀, MyBatis/JPA</li>
+      <li>Spring MVC: <code>DispatcherServlet</code>, 핸들러 매핑,
+      컨트롤러, 뷰 리졸버</li>
+      <li>Spring Boot: 자동 설정, 외부 설정, 내장 서버, 테스트
+      슬라이스</li>
+      </ol>
+      <p>처음부터 모두 섞지 말자. IoC/DI → 테스트 → 템플릿 → 트랜잭션 →
+      AOP가 잡힌 뒤 보면 이 기능들이 “별도 암기 대상”이 아니라 같은
+      원리의 응용으로 보인다.</p>
+      <h1 id="회상-워크북">회상 워크북</h1>
+      <p>답을 읽기 전에 반드시 자료를 덮고 소리 내어 설명한다. 막히면
+      답을 본 후 바로 다시 덮고 자기 말로 재설명한다.</p>
+      <h1 id="1단계-필수-20문항">1단계: 필수 20문항</h1>
+      <ol type="1">
+      <li>의존성이란 무엇인가?</li>
+      <li>구체 클래스 대신 인터페이스에 의존하면 무엇이 달라지는가?</li>
+      <li>관심사의 분리는 왜 변경 비용을 줄이는가?</li>
+      <li>IoC에서 뒤집히는 제어권은 무엇인가?</li>
+      <li>DI와 Dependency Lookup은 어떻게 다른가?</li>
+      <li>Bean과 평범한 객체의 본질적 차이는 무엇인가?</li>
+      <li>싱글톤 빈이 무상태여야 하는 이유는?</li>
+      <li>자동화된 테스트가 수동 콘솔 확인보다 나은 이유는?</li>
+      <li>테스트 독립성이 깨지는 대표 사례는?</li>
+      <li>템플릿과 콜백은 각각 무엇인가?</li>
+      <li>JDBC의 어떤 부분을 <code>JdbcTemplate</code>이
+      가져가는가?</li>
+      <li>예외 복구·회피·전환의 차이는?</li>
+      <li>예외를 전환할 때 원인을 보존해야 하는 이유는?</li>
+      <li>트랜잭션 경계가 서비스 계층에 놓이는 이유는?</li>
+      <li>PSA가 해결하는 문제는?</li>
+      <li>프록시가 실제 대상을 대신할 수 있는 조건은?</li>
+      <li>Advice와 Pointcut의 차이는?</li>
+      <li>AOP가 객체지향을 대체하지 않는 이유는?</li>
+      <li>POJO의 조건은 무엇인가?</li>
+      <li>DI·AOP·PSA가 스프링의 목적에 어떻게 기여하는가?</li>
+      </ol>
+      <h1 id="2단계-답안-기준">2단계: 답안 기준</h1>
+      <p>정확히 같은 문장을 외울 필요는 없다. 아래 핵심 요소가 들어가면
+      된다.</p>
+      <ol type="1">
+      <li>한 객체가 다른 객체의 타입·호출·결과에 영향을 받는 관계.</li>
+      <li>클라이언트를 바꾸지 않고 구현을 교체할 수 있고 결합이
+      줄어든다.</li>
+      <li>다른 이유로 변하는 코드를 분리해 한 변경이 다른 코드로 퍼지는
+      것을 줄인다.</li>
+      <li>객체가 직접 가지던 생성·연결·호출 흐름의 제어가 외부
+      팩토리/컨테이너로 이동한다.</li>
+      <li>DI는 외부가 전달하고, DL은 객체가 컨테이너에서 직접
+      찾는다.</li>
+      <li>스프링 컨테이너가 생성·연결·생명주기를 관리하는 객체가
+      Bean이다.</li>
+      <li>여러 요청과 스레드가 하나를 공유하므로 요청별 상태가 충돌할 수
+      있다.</li>
+      <li>반복 가능하고 스스로 판정하며 회귀 오류를 빠르게 찾는다.</li>
+      <li>공유 DB 데이터, 실행 순서, 시간·네트워크 같은 통제되지 않은
+      외부 상태.</li>
+      <li>템플릿은 고정 흐름, 콜백은 호출 시 전달되는 변하는 동작.</li>
+      <li>연결/Statement 획득, 실행 흐름, 예외 변환, 자원 반환 등 반복
+      기술 코드.</li>
+      <li>현재 위치에서 정상화 / 적절한 상위 책임자에게 전달 / 의미 있는
+      예외로 변경.</li>
+      <li>원래 실패 위치와 원인을 디버깅할 수 있어야 한다.</li>
+      <li>여러 DAO 호출을 하나의 업무 단위로 묶기 위해서다.</li>
+      <li>기술마다 다른 API를 일관된 서비스 인터페이스로 다룬다.</li>
+      <li>호출자가 기대하는 인터페이스/타입을 제공하고 실제 대상에
+      위임한다.</li>
+      <li>Advice는 기능, Pointcut은 적용 위치 조건이다.</li>
+      <li>객체 하나의 책임으로 모으기 어려운 횡단 관심사를
+      보완한다.</li>
+      <li>특정 규약·환경에 강하게 종속되지 않고 객체지향 설계와 테스트가
+      가능한 객체.</li>
+      <li>관계 유연화, 횡단 관심사 분리, 기술 차이 격리로 POJO가 업무에
+      집중하게 한다.</li>
+      </ol>
+      <h1 id="3단계-코드-진단-문제">3단계: 코드 진단 문제</h1>
+      <h2 id="문제-a">문제 A</h2>
+      <div class="sourceCode" id="cb32"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> OrderService <span class="op">{</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">final</span> MySqlOrderDao dao <span class="op">=</span> <span class="kw">new</span> <span class="fu">MySqlOrderDao</span><span class="op">();</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>질문: 결합의 원인은 무엇이고, 어떤 순서로 개선할 것인가?</p>
+      <p>답안 기준: 역할 인터페이스 정의 → 생성자에서 인터페이스 수신 →
+      팩토리/컨테이너가 구현 객체 생성·주입 → 테스트에서는 가짜 구현
+      주입.</p>
+      <h2 id="문제-b">문제 B</h2>
+      <div class="sourceCode" id="cb33"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">payment</span><span class="op">();</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    log<span class="op">.</span><span class="fu">warn</span><span class="op">(</span><span class="st">&quot;failed&quot;</span><span class="op">);</span></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="fu">sendCompleteMessage</span><span class="op">();</span></span></code></pre></div>
+      <p>질문: 어떤 위험이 있는가?</p>
+      <p>답안 기준: 결제 실패가 정상 처리처럼 진행되어 완료 메시지가
+      발송된다. 복구할 수 없다면 의미 있는 예외로 전환하거나 상위로
+      전달하고 원인을 보존해야 한다.</p>
+      <h2 id="문제-c">문제 C</h2>
+      <div class="sourceCode" id="cb34"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> OrderService <span class="op">{</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">placeOrder</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">begin</span><span class="op">();</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>            <span class="co">// 주문 로직</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>            <span class="fu">commit</span><span class="op">();</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span><span class="bu">Exception</span> e<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>            <span class="fu">rollback</span><span class="op">();</span></span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+      <p>질문: 5장에서는 무엇을 얻었고 6장에서는 무엇을 더
+      개선하는가?</p>
+      <p>답안 기준: 5장에서는 트랜잭션 기술을 추상화해 구체 API 종속을
+      줄인다. 6장에서는 프록시/AOP로 경계 코드 자체를 핵심 서비스에서
+      분리한다.</p>
+      <h2 id="문제-d">문제 D</h2>
+      <div class="sourceCode" id="cb35"><pre
+      class="sourceCode java"><code class="sourceCode java"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="at">@Transactional</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">outer</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner</span><span class="op">();</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="at">@Transactional</span></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">inner</span><span class="op">()</span> <span class="op">{</span> <span class="op">}</span></span></code></pre></div>
+      <p>질문: <code>inner()</code>의 별도 트랜잭션 설정이 기대대로
+      적용되지 않을 수 있는 이유는?</p>
+      <p>답안 기준: 같은 객체 내부 직접 호출은 외부 프록시를 통과하지
+      않을 수 있기 때문이다.</p>
+      <h1 id="4단계-백지-지도">4단계: 백지 지도</h1>
+      <p>빈 종이에 아래 단어만 적고 화살표로 연결한다.</p>
+      <pre class="text"><code>UserDao / ConnectionMaker / DaoFactory / ApplicationContext
+DI / 테스트 / JdbcTemplate / 예외 전환
+트랜잭션 / PSA / 프록시 / Advice / Pointcut / AOP / POJO</code></pre>
+      <p>연결선마다 “왜 연결되는지” 한 문장을 쓴다. 예:
+      <code>DI → 테스트: 실제 DAO 대신 가짜 DAO를 주입할 수 있다.</code></p>
+      <h1 id="5단계-설명-시험">5단계: 설명 시험</h1>
+      <p>다음 주제를 개발을 모르는 사람에게 3분 동안 설명한다.</p>
+      <ol type="1">
+      <li>스프링은 객체를 대신 만들어주는 도구 이상의 무엇인가?</li>
+      <li>트랜잭션 로직을 서비스에서 제거해도 실제로 적용되는
+      이유는?</li>
+      <li>왜 스프링을 잘 쓰려면 객체지향 설계를 먼저 알아야 하는가?</li>
+      </ol>
+      <h1 id="초심자-용어-사전">초심자 용어 사전</h1>
+      <table>
+      <thead>
+      <tr class="header">
+      <th>용어</th>
+      <th>쉬운 뜻</th>
+      <th>이 자료에서의 역할</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>애플리케이션</td>
+      <td>사용자의 문제를 해결하는 실행 가능한 소프트웨어</td>
+      <td>우리가 만드는 전체 시스템</td>
+      </tr>
+      <tr class="even">
+      <td>엔터프라이즈</td>
+      <td>다수 사용자·데이터·트랜잭션·보안·안정성을 요구하는 업무
+      시스템</td>
+      <td>스프링이 기술 복잡성을 지원하는 환경</td>
+      </tr>
+      <tr class="odd">
+      <td>프레임워크</td>
+      <td>전체 실행 흐름을 주도하고 개발자 코드를 필요할 때 호출하는
+      기반</td>
+      <td>제어의 역전이 적용된 구조</td>
+      </tr>
+      <tr class="even">
+      <td>라이브러리</td>
+      <td>개발자 코드가 필요할 때 직접 호출하는 기능 묶음</td>
+      <td>프레임워크와 제어 방향 비교</td>
+      </tr>
+      <tr class="odd">
+      <td>클래스</td>
+      <td>객체를 만들기 위한 타입과 코드의 정의</td>
+      <td>Java 설계 단위</td>
+      </tr>
+      <tr class="even">
+      <td>객체/오브젝트</td>
+      <td>실행 중 존재하며 상태와 동작을 가진 실체</td>
+      <td>스프링이 만들고 연결하는 대상</td>
+      </tr>
+      <tr class="odd">
+      <td>인스턴스</td>
+      <td>특정 클래스로 실제 생성된 객체</td>
+      <td>객체와 거의 같은 문맥으로 사용</td>
+      </tr>
+      <tr class="even">
+      <td>책임</td>
+      <td>객체가 알아야 하거나 수행해야 하는 일</td>
+      <td>설계 경계를 정하는 기준</td>
+      </tr>
+      <tr class="odd">
+      <td>의존성</td>
+      <td>한 객체가 다른 객체를 사용해 영향을 받는 관계</td>
+      <td>DI의 대상</td>
+      </tr>
+      <tr class="even">
+      <td>결합도</td>
+      <td>모듈 변경이 다른 모듈에 영향을 주는 정도</td>
+      <td>낮출수록 교체와 테스트가 쉬움</td>
+      </tr>
+      <tr class="odd">
+      <td>응집도</td>
+      <td>관련 책임이 한 모듈 안에 모인 정도</td>
+      <td>높을수록 변경 이유가 선명함</td>
+      </tr>
+      <tr class="even">
+      <td>인터페이스</td>
+      <td>구현과 분리된 역할의 약속</td>
+      <td>구체 구현 교체 지점</td>
+      </tr>
+      <tr class="odd">
+      <td>다형성</td>
+      <td>같은 인터페이스 호출이 구현체에 따라 다르게 동작</td>
+      <td>DI가 활용하는 객체지향 성질</td>
+      </tr>
+      <tr class="even">
+      <td>IoC</td>
+      <td>생성·연결·호출의 제어권이 외부로 이동하는 원리</td>
+      <td>스프링 컨테이너의 기반</td>
+      </tr>
+      <tr class="odd">
+      <td>DI</td>
+      <td>필요한 협력 객체를 외부에서 전달하는 방식</td>
+      <td>느슨한 결합과 테스트 지원</td>
+      </tr>
+      <tr class="even">
+      <td>DL</td>
+      <td>객체가 컨테이너에 의존성을 직접 요청하는 방식</td>
+      <td>DI와 대비</td>
+      </tr>
+      <tr class="odd">
+      <td>Bean</td>
+      <td>스프링 컨테이너가 관리하는 객체</td>
+      <td>생성·연결·수명 관리 대상</td>
+      </tr>
+      <tr class="even">
+      <td>BeanFactory</td>
+      <td>빈 관리의 핵심 기능을 정의한 컨테이너</td>
+      <td>최소 IoC 컨테이너</td>
+      </tr>
+      <tr class="odd">
+      <td>ApplicationContext</td>
+      <td>BeanFactory에 여러 애플리케이션 서비스를 더한 컨테이너</td>
+      <td>일반적으로 사용하는 컨테이너</td>
+      </tr>
+      <tr class="even">
+      <td>메타정보</td>
+      <td>빈을 어떻게 만들고 연결할지 설명하는 설정</td>
+      <td>XML, Java 설정, 애노테이션 등</td>
+      </tr>
+      <tr class="odd">
+      <td>스코프</td>
+      <td>객체가 존재하고 공유되는 범위</td>
+      <td>singleton, prototype, request 등</td>
+      </tr>
+      <tr class="even">
+      <td>DAO</td>
+      <td>데이터 저장소 접근을 담당하는 객체</td>
+      <td>JDBC 예제의 핵심 역할</td>
+      </tr>
+      <tr class="odd">
+      <td>DataSource</td>
+      <td>DB 연결을 제공하는 표준 추상화</td>
+      <td>연결 생성 방법을 격리</td>
+      </tr>
+      <tr class="even">
+      <td>JDBC</td>
+      <td>Java의 관계형 DB 접근 표준 API</td>
+      <td>반복 코드가 템플릿으로 발전</td>
+      </tr>
+      <tr class="odd">
+      <td>템플릿</td>
+      <td>변하지 않는 작업 흐름을 담은 코드</td>
+      <td>반복과 필수 정리 절차 담당</td>
+      </tr>
+      <tr class="even">
+      <td>콜백</td>
+      <td>템플릿에 전달되는 변하는 동작</td>
+      <td>SQL 등 개별 작업 담당</td>
+      </tr>
+      <tr class="odd">
+      <td>트랜잭션</td>
+      <td>여러 변경을 전부 성공/실패시키는 논리 단위</td>
+      <td>서비스 작업의 일관성 보장</td>
+      </tr>
+      <tr class="even">
+      <td>commit</td>
+      <td>트랜잭션 변경을 확정</td>
+      <td>성공 경계</td>
+      </tr>
+      <tr class="odd">
+      <td>rollback</td>
+      <td>트랜잭션 변경을 취소</td>
+      <td>실패 경계</td>
+      </tr>
+      <tr class="even">
+      <td>PSA</td>
+      <td>기술 차이를 일관된 서비스 API 뒤에 감추는 추상화</td>
+      <td>DB/JTA 등 교체 가능성 지원</td>
+      </tr>
+      <tr class="odd">
+      <td>리플렉션</td>
+      <td>실행 중 클래스·메서드 정보를 조사하고 호출하는 기능</td>
+      <td>동적 프록시 기반 기술</td>
+      </tr>
+      <tr class="even">
+      <td>프록시</td>
+      <td>실제 대상 앞에서 요청을 대신 받는 객체</td>
+      <td>AOP 부가기능 적용</td>
+      </tr>
+      <tr class="odd">
+      <td>Target</td>
+      <td>프록시가 위임하는 실제 핵심 객체</td>
+      <td>비즈니스 로직 담당</td>
+      </tr>
+      <tr class="even">
+      <td>Advice</td>
+      <td>적용할 부가기능</td>
+      <td>트랜잭션, 로깅 등</td>
+      </tr>
+      <tr class="odd">
+      <td>Pointcut</td>
+      <td>Advice를 적용할 위치를 고르는 조건</td>
+      <td>클래스·메서드 선별</td>
+      </tr>
+      <tr class="even">
+      <td>Advisor</td>
+      <td>Advice와 Pointcut의 조합</td>
+      <td>스프링 AOP 규칙</td>
+      </tr>
+      <tr class="odd">
+      <td>Join point</td>
+      <td>부가기능을 적용할 수 있는 실행 지점</td>
+      <td>Spring AOP에서는 주로 메서드 실행</td>
+      </tr>
+      <tr class="even">
+      <td>Aspect</td>
+      <td>횡단 관심사를 모듈화한 단위</td>
+      <td>Advice와 적용 규칙 포함</td>
+      </tr>
+      <tr class="odd">
+      <td>AOP</td>
+      <td>여러 객체를 가로지르는 관심사를 분리하는 접근</td>
+      <td>트랜잭션 코드 분리</td>
+      </tr>
+      <tr class="even">
+      <td>위빙</td>
+      <td>Aspect 기능을 대상 코드/실행 구조에 엮는 과정</td>
+      <td>컴파일·로드·런타임 방식</td>
+      </tr>
+      <tr class="odd">
+      <td>LTW</td>
+      <td>클래스 로딩 시점에 수행하는 위빙</td>
+      <td>AspectJ 적용 방식 중 하나</td>
+      </tr>
+      <tr class="even">
+      <td>POJO</td>
+      <td>특정 규약·환경에 종속되지 않는 평범한 Java 객체</td>
+      <td>스프링이 보호하려는 핵심 코드</td>
+      </tr>
+      <tr class="odd">
+      <td>Mock</td>
+      <td>호출·인자 같은 상호작용을 검증하는 테스트 더블</td>
+      <td>고립된 단위 테스트 지원</td>
+      </tr>
+      <tr class="even">
+      <td>테스트 픽스처</td>
+      <td>테스트 실행에 필요한 객체와 데이터 상태</td>
+      <td>반복 가능한 테스트 준비</td>
+      </tr>
+      <tr class="odd">
+      <td>컨텍스트 캐시</td>
+      <td>같은 테스트 설정의 ApplicationContext 재사용</td>
+      <td>통합 테스트 속도 개선</td>
+      </tr>
+      </tbody>
+      </table>
+      <h1 id="실제-학습-계획과-기록지">실제 학습 계획과 기록지</h1>
+      <h2 id="결론부터-이렇게-공부한다">결론부터: 이렇게 공부한다</h2>
+      <p>완전 초심자는 <strong>10주, 주 5일, 하루 60~90분</strong>을
+      기본으로 잡는다. 시간이 더 필요하면 주차를 늘리되 하루 분량을
+      무리하게 합치지 않는다.</p>
+      <p>매일 같은 네 단계로 진행한다.</p>
+      <pre class="text"><code>10분  이전 내용 자료 없이 말하기
+25분  오늘 내용 읽고 핵심 한 문장 쓰기
+35분  코드를 직접 작성·변경·실행하기
+10분  회상 질문 답하기와 오답 표시</code></pre>
+      <p>코드를 실행하지 못한 날에도 손으로 객체 관계를 그리고 예상
+      결과를 적는다. 단순히 읽고 밑줄만 그은 날은 학습 완료로 세지
+      않는다.</p>
+      <h2 id="0주차-환경-준비">0주차: 환경 준비</h2>
+      <p>목표: Java 코드를 직접 실행하고 테스트 하나를 통과시킨다.</p>
+      <ul>
+      <li>JDK 설치 및 <code>java -version</code> 확인</li>
+      <li>IDE 설치(IntelliJ IDEA Community 등)</li>
+      <li>Git 기본: clone, status, add, commit</li>
+      <li>Gradle 또는 Maven 프로젝트 열기</li>
+      <li><code>HelloWorld</code> 실행</li>
+      <li>JUnit 테스트 하나 실행</li>
+      </ul>
+      <p>완료 기준: <code>assertEquals(4, 2 + 2)</code> 테스트를 IDE와
+      명령줄에서 모두 실행한다.</p>
+      <h2 id="12주차-java와-객체-협력">1~2주차: Java와 객체 협력</h2>
+      <p>읽기: <a href="./01-prerequisites.md">선수지식</a>의 1~4,
+      8~9절.</p>
+      <p>실습:</p>
+      <ol type="1">
+      <li><code>User</code>, <code>UserRepository</code>,
+      <code>MemoryUserRepository</code>, <code>UserService</code>
+      작성</li>
+      <li><code>UserService</code>가 구현체를 직접 생성하는 버전
+      작성</li>
+      <li>생성자 주입 버전으로 리팩터링</li>
+      <li><code>FakeUserRepository</code>를 주입한 테스트 작성</li>
+      <li>인터페이스 없이도 교체 가능한 경우와 인터페이스가 유용한 경우
+      비교</li>
+      </ol>
+      <p>완료 기준:</p>
+      <ul>
+      <li>의존, 인터페이스, 다형성, 생성자 주입을 코드 한 줄씩 가리키며
+      설명한다.</li>
+      <li>스프링 없이 DI를 구현할 수 있다.</li>
+      </ul>
+      <h2 id="3주차-sqljdbc트랜잭션-기초">3주차: SQL·JDBC·트랜잭션
+      기초</h2>
+      <p>읽기: 선수지식 5~7절.</p>
+      <p>실습:</p>
+      <ol type="1">
+      <li>H2 같은 연습용 DB에서 users 테이블 생성</li>
+      <li>JDBC로 insert/select 수행</li>
+      <li>자원 정리를 일부러 빼고 왜 위험한지 설명</li>
+      <li>두 update 사이에 예외를 발생시켜 부분 반영 관찰</li>
+      <li>rollback을 적용해 전체 취소 확인</li>
+      </ol>
+      <p>완료 기준: Connection, PreparedStatement, ResultSet, commit,
+      rollback의 역할을 설명한다.</p>
+      <h2 id="4주차-1장-iocdi">4주차: 1장 IoC/DI</h2>
+      <p>읽기: <a href="./02-volume1-core.md">1권 핵심 해설</a>의 1장 →
+      GitBook 1장 → GitHub 저장소의 IoC Container 문서.</p>
+      <p>실습 순서:</p>
+      <ol type="1">
+      <li>연결 생성까지 포함한 <code>UserDao</code> 작성</li>
+      <li><code>ConnectionMaker</code> 추출</li>
+      <li><code>DaoFactory</code>로 생성·조립 이동</li>
+      <li>Java 설정 <code>ApplicationContext</code>로 교체</li>
+      <li>동일한 DAO에 테스트용 연결 구현 주입</li>
+      </ol>
+      <p>백지 질문: <code>UserDao → ConnectionMaker ← 구현체</code>,
+      <code>DaoFactory/ApplicationContext</code> 관계를 그림으로
+      그린다.</p>
+      <h2 id="5주차-2장-테스트">5주차: 2장 테스트</h2>
+      <p>실습:</p>
+      <ol type="1">
+      <li>main 기반 수동 검증 작성</li>
+      <li>JUnit 자동 검증으로 변경</li>
+      <li>테스트를 연속 두 번 실행해 데이터 충돌 재현</li>
+      <li>픽스처 초기화로 독립성 확보</li>
+      <li>성공·실패·경계값 테스트 추가</li>
+      </ol>
+      <p>완료 기준: 실패하는 테스트를 먼저 만들고 최소 구현으로
+      통과시키는 과정을 한 번 기록한다.</p>
+      <h2 id="6주차-34장-템플릿과-예외">6주차: 3~4장 템플릿과 예외</h2>
+      <p>실습:</p>
+      <ol type="1">
+      <li>세 JDBC 메서드에서 반복되는 try/finally 표시</li>
+      <li>변하는 SQL을 <code>StatementStrategy</code>로 추출</li>
+      <li>익명 클래스, 가능하면 람다로 전달</li>
+      <li><code>JdbcTemplate</code> 버전과 비교</li>
+      <li>예외를 삼키는 코드를 작성해 잘못된 성공 흐름 재현</li>
+      <li>원인을 보존하는 도메인 예외로 전환</li>
+      </ol>
+      <p>완료 기준: 템플릿과 콜백의 경계를 새 예제(파일 읽기 등)에
+      적용한다.</p>
+      <h2 id="7주차-5장-트랜잭션과-psa">7주차: 5장 트랜잭션과 PSA</h2>
+      <p>실습:</p>
+      <ol type="1">
+      <li>사용자 여러 명을 갱신하는 서비스 작성</li>
+      <li>중간 실패로 부분 반영 재현</li>
+      <li>서비스 경계에 트랜잭션 적용</li>
+      <li>트랜잭션 관리자 인터페이스와 가짜 구현으로 테스트</li>
+      <li>수평 분리와 수직 분리를 다이어그램으로 작성</li>
+      </ol>
+      <p>완료 기준: “왜 DAO 메서드마다 트랜잭션을 걸면 업무 단위를
+      보장하지 못하는가?”에 답한다.</p>
+      <h2 id="8주차-6장-aop">8주차: 6장 AOP</h2>
+      <p>실습:</p>
+      <ol type="1">
+      <li><code>UserService</code> 인터페이스와 실제 구현 작성</li>
+      <li>같은 인터페이스의 트랜잭션 프록시를 손으로 작성</li>
+      <li>JDK 동적 프록시로 교체</li>
+      <li><code>@Aspect</code>와 Pointcut으로 실행 시간 측정</li>
+      <li>self-invocation 사례를 실행해 결과 관찰</li>
+      </ol>
+      <p>완료 기준: 호출자 → 프록시 → 타깃 흐름과 Advice/Pointcut을 그림
+      없이 설명한다.</p>
+      <h2 id="9주차-8장과-전체-통합">9주차: 8장과 전체 통합</h2>
+      <p>실습:</p>
+      <ul>
+      <li>주문 서비스를 설계한다.</li>
+      <li>핵심 비즈니스 객체에는 스프링 API를 넣지 않는다.</li>
+      <li>저장소와 결제 구현은 DI로 교체한다.</li>
+      <li>트랜잭션과 시간 측정은 AOP로 적용한다.</li>
+      <li>데이터 접근 기술 예외는 의미 있는 예외로 전환한다.</li>
+      <li>단위 테스트와 통합 테스트를 분리한다.</li>
+      </ul>
+      <p>완료 기준: 어떤 코드가 POJO이며 DI·AOP·PSA가 각각 무엇을
+      보호하는지 코드에서 지목한다.</p>
+      <h2 id="10주차-2권-보충과-현대-스프링-연결">10주차: 2권 보충과
+      현대 스프링 연결</h2>
+      <p>읽기: <a href="./03-volume2-aop-test.md">2권 보충</a>, GitHub의
+      AOP와 Test 문서.</p>
+      <p>실습:</p>
+      <ol type="1">
+      <li>프록시 AOP와 LTW 차이를 표로 다시 작성</li>
+      <li>동일 설정을 사용하는 통합 테스트들의 컨텍스트 재사용 관찰</li>
+      <li><code>@DirtiesContext</code> 전후 실행 시간 비교</li>
+      <li>가능하면 <code>@WebMvcTest</code> 또는
+      <code>@DataJpaTest</code> 슬라이스 하나 작성</li>
+      </ol>
+      <h2 id="회독-계획">회독 계획</h2>
+      <table>
+      <thead>
+      <tr class="header">
+      <th>시점</th>
+      <th>무엇을 할지</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="odd">
+      <td>당일</td>
+      <td>실습 후 필수 질문 3~5개 답하기</td>
+      </tr>
+      <tr class="even">
+      <td>다음 날</td>
+      <td>코드 없이 객체 관계와 흐름 그리기</td>
+      </tr>
+      <tr class="odd">
+      <td>3일 뒤</td>
+      <td>틀린 질문만 다시 답하기</td>
+      </tr>
+      <tr class="even">
+      <td>7일 뒤</td>
+      <td>해당 실습의 핵심 부분을 빈 프로젝트에서 재작성</td>
+      </tr>
+      <tr class="odd">
+      <td>14일 뒤</td>
+      <td>다음 장과의 연결을 한 문장씩 추가</td>
+      </tr>
+      </tbody>
+      </table>
+      <h2 id="일일-기록-템플릿">일일 기록 템플릿</h2>
+      <p>복사해서 날짜별로 작성한다.</p>
+      <div class="sourceCode" id="cb38"><pre
+      class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">### YYYY-MM-DD — 주제</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>오늘의 핵심 한 문장:</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>직접 실행한 코드:</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>예상과 달랐던 결과:</span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>아직 설명 못 하는 용어:</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>자료 없이 답한 질문:</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>틀린 질문과 수정 답:</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>다음 복습일: +1 / +3 / +7 / +14</span></code></pre></div>
+      <h2 id="진도-판단-규칙">진도 판단 규칙</h2>
+      <p>다음 세 가지를 모두 만족해야 단원을 완료한다.</p>
+      <ol type="1">
+      <li><strong>설명</strong>: 핵심을 자료 없이 3분 설명한다.</li>
+      <li><strong>구현</strong>: 핵심 구조를 빈 파일에서 다시
+      작성한다.</li>
+      <li><strong>변형</strong>: <code>UserDao</code>가 아닌 주문·결제
+      같은 새 사례에 적용한다.</li>
+      </ol>
+      <p>암기가 흐릿해도 다음 장으로 갈 수 있다. 단, 실습을 하지
+      않았거나 핵심 질문에 전혀 답하지 못하면 하루 더 사용한다.</p>
+      <h1 id="활용-자료와-범위">활용 자료와 범위</h1>
+      <h2 id="주-자료">주 자료</h2>
+      <ul>
+      <li><p><a
+      href="https://incheol-jung.gitbook.io/docs/study/tobys-spring">Incheol's
+      TECH BLOG — 토비의 스프링 (3.1)</a></p>
+      <ul>
+      <li>활용 범위: 1권 1~6장·8장, 2권 AOP/LTW 및 테스트 컨텍스트</li>
+      <li>역할: 책의 문제 전개와 핵심 개념 순서</li>
+      </ul></li>
+      <li><p><a
+      href="https://github.com/pjok1122/Spring-Summary">pjok1122/Spring-Summary</a></p>
+      <ul>
+      <li>활용 범위: IoC Container, ApplicationContext, AOP, Spring Data
+      Access, Test</li>
+      <li>역할: 컨테이너 종류·빈 등록/주입·현대 테스트 슬라이스·데이터
+      접근 API 등 보충</li>
+      </ul></li>
+      </ul>
+      <h2 id="사용-원칙">사용 원칙</h2>
+      <ul>
+      <li>원문을 대체하는 복제가 아니라 초심자용 설명과 학습 순서로
+      재구성했다.</li>
+      <li>두 자료의 범위를 넘어서는 설명은 개념 연결과 현대적 맥락을
+      위한 보충이다.</li>
+      <li>Spring 3.1 시대 API와 현대 Spring/Spring Boot 사용법은
+      구분한다.</li>
+      <li>실제 프로젝트의 Spring 및 JUnit 버전에 따라 애노테이션과
+      설정법은 달라질 수 있다.</li>
+      </ul>
+      <footer>
+        <p>학습 진도와 색상 설정은 이 브라우저에만 저장됩니다.</p>
+      </footer>
+    </main>
+  </div>
+  <button id="toTop" class="to-top" aria-label="맨 위로">↑</button>
+  <script src="app.js"></script>
+</body>
+</html>

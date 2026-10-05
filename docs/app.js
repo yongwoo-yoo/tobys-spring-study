@@ -86,7 +86,10 @@
     '03-volume2-aop-test.md': '2권-보충-aopltw테스트-컨텍스트',
     '04-recall-workbook.md': '회상-워크북',
     '05-glossary.md': '초심자-용어-사전',
-    '06-study-log.md': '실제-학습-계획과-기록지'
+    '06-study-log.md': '실제-학습-계획과-기록지',
+    '07-deep-ioc-di.md': '심화-1-객체지향에서-스프링-컨테이너까지',
+    '08-deep-jdbc-test-exception.md': '심화-2-jdbc템플릿예외테스트를-한-흐름으로-이해하기',
+    '09-deep-transaction-aop.md': '심화-3-트랜잭션서비스-추상화aop-완전-연결'
   };
   document.querySelectorAll('a[href$=".md"]').forEach(link => {
     const file = link.getAttribute('href').split('/').pop();
